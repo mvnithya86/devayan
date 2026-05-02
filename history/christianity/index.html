@@ -1,67 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>History MCQ Quiz</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #d6f0ff;
+  text-align: center;
+}
+
+.quiz-box {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  width: 60%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+button {
+  background: #fff5b1;
+  border: none;
+  padding: 10px;
+  margin: 8px;
+  width: 80%;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.correct { background: lightgreen; }
+.wrong { background: #ff9e9e; }
+
+#result {
+  display: none;
+  font-size: 24px;
+  margin-top: 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="quiz-box">
+<h2>📘 Rise of Christianity Quiz</h2>
+<p id="question"></p>
+<div id="options"></div>
+</div>
+
+<div id="result"></div>
+
+<audio id="correctSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
+<audio id="wrongSound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
+
 <script>
 
 let questions = [
 
-/* 1 */ {q:"Who became the undisputed emperor of Rome?", a:"constantine"},
-/* 2 */ {q:"Constantine shifted the capital to?", a:"constantinople"},
-/* 3 */ {q:"Old name of Constantinople?", a:"byzantium"},
-/* 4 */ {q:"Christianity became official religion in which century?", a:"4th"},
-/* 5 */ {q:"Who is the spiritual head of Christians?", a:"pope"},
+{q:"Who made Christianity a legal religion?",a:"Constantine"},
+{q:"Capital shifted from Rome to?",a:"Constantinople"},
+{q:"Jesus was born in?",a:"Bethlehem"},
+{q:"Jesus grew up in?",a:"Nazareth"},
+{q:"Roman governor who ordered trial of Jesus?",a:"Pontius Pilate"},
+{q:"Jesus was executed by?",a:"Crucifixion"},
+{q:"Jesus preached love for?",a:"Neighbours"},
+{q:"Number of disciples of Jesus?",a:"12"},
+{q:"First followers formed?",a:"Christian community"},
+{q:"Teachings recorded in?",a:"Gospels"},
 
-/* 6 */ {q:"Jesus rejected which principle?", a:"eye for eye"},
-/* 7 */ {q:"Jesus taught love for whom?", a:"all"},
-/* 8 */ {q:"Jesus was crucified by which empire?", a:"romans"},
-/* 9 */ {q:"Who was the Roman governor in Jesus trial?", a:"pontius pilate"},
-/* 10 */ {q:"Jesus is also called?", a:"messiah"},
+{q:"Who spread Christianity widely?",a:"Paul"},
+{q:"Who is called foundation rock of Christianity?",a:"Peter"},
+{q:"Christians were persecuted for how many years?",a:"300"},
+{q:"Christianity became official religion in?",a:"4th century"},
+{q:"Headquarters of Christianity became?",a:"St Peter's Basilica"},
+{q:"Spiritual head of Christians?",a:"Pope"},
+{q:"Medieval period means?",a:"Middle age"},
+{q:"India medieval period starts from?",a:"8th century"},
+{q:"India medieval period ends in?",a:"18th century"},
+{q:"European medieval period?",a:"600 to 1500 CE"},
 
-/* 11 */ {q:"Teachings of Jesus are recorded in?", a:"gospels"},
-/* 12 */ {q:"Who spread Christianity in Palestine?", a:"peter"},
-/* 13 */ {q:"Who spread Christianity later widely?", a:"paul"},
-/* 14 */ {q:"Early Christians were majority or minority?", a:"minority"},
-/* 15 */ {q:"Christians were persecuted by?", a:"romans"},
+{q:"Who was King David?",a:"Israel king"},
+{q:"Who ruled Jews under Romans?",a:"Herod"},
+{q:"Messiah means?",a:"Saviour"},
+{q:"Jesus taught love for?",a:"Enemies"},
+{q:"Jesus rejected which rule?",a:"Eye for eye"},
+{q:"Where was Jesus baptized?",a:"River"},
+{q:"Who baptized Jesus?",a:"John"},
+{q:"Holy Spirit appeared as?",a:"Dove"},
+{q:"Jesus mission was to?",a:"Help people"},
+{q:"Roman empire capital after shift?",a:"Constantinople"},
 
-/* 16 */ {q:"Christianity became legal in which year?", a:"313"},
-/* 17 */ {q:"Constantine defeated whom?", a:"maxentius"},
-/* 18 */ {q:"Jesus was born in?", a:"bethlehem"},
-/* 19 */ {q:"Jesus grew up in?", a:"nazareth"},
-/* 20 */ {q:"Jesus studied which scriptures?", a:"jewish"},
+{q:"Who were Pharisees?",a:"Religious group"},
+{q:"Jesus teachings were?",a:"Simple"},
+{q:"Jesus believed in?",a:"One God"},
+{q:"Christianity spread in?",a:"Roman empire"},
+{q:"Who defeated Maxentius?",a:"Constantine"},
+{q:"Christianity was earlier?",a:"Minority"},
+{q:"Jesus died at age?",a:"30 approx"},
+{q:"Nazareth is in?",a:"Galilee"},
+{q:"Jerusalem is in?",a:"Judea"},
+{q:"Samaria lies between?",a:"Galilee and Judea"},
 
-/* 21 */ {q:"John the Baptist was Jesus'?", a:"cousin"},
-/* 22 */ {q:"Jesus was baptized in a?", a:"river"},
-/* 23 */ {q:"Holy Spirit appeared as?", a:"dove"},
-/* 24 */ {q:"Voice from heaven called Jesus?", a:"son"},
-/* 25 */ {q:"How many disciples did Jesus have?", a:"12"},
-
-/* 26 */ {q:"Main teaching of Jesus?", a:"love"},
-/* 27 */ {q:"Jesus taught forgiveness to?", a:"enemies"},
-/* 28 */ {q:"Christian community formed after belief in?", a:"resurrection"},
-/* 29 */ {q:"Resurrection means?", a:"rise again"},
-/* 30 */ {q:"Jesus lived in hearts of?", a:"followers"},
-
-/* 31 */ {q:"Christianity spread across which empire?", a:"roman"},
-/* 32 */ {q:"Christianity became world religion due to?", a:"teachings"},
-/* 33 */ {q:"Meaning of medieval?", a:"middle"},
-/* 34 */ {q:"Medieval period in India started from?", a:"8th"},
-/* 35 */ {q:"Early medieval period range?", a:"8th-13th"},
-
-/* 36 */ {q:"Later medieval period range?", a:"13th-18th"},
-/* 37 */ {q:"Delhi Sultanate period?", a:"1200-1526"},
-/* 38 */ {q:"Mughal period began in?", a:"1526"},
-/* 39 */ {q:"Medieval period in Europe?", a:"600-1500"},
-/* 40 */ {q:"Messiah means?", a:"saviour"},
-
-/* 41 */ {q:"Herod was a?", a:"puppet ruler"},
-/* 42 */ {q:"Jews were waiting for?", a:"messiah"},
-/* 43 */ {q:"Jesus challenged which traditions?", a:"jewish"},
-/* 44 */ {q:"Teachings of Jesus were?", a:"simple"},
-/* 45 */ {q:"Jesus taught equality of?", a:"both"},
-
-/* 46 */ {q:"Christian headquarters located in?", a:"vatican"},
-/* 47 */ {q:"St Peter's Basilica is in?", a:"vatican"},
-/* 48 */ {q:"Jesus died by?", a:"crucifixion"},
-/* 49 */ {q:"Main idea of Christianity?", a:"forgiveness"},
-/* 50 */ {q:"Holy book containing teachings of Jesus?", a:"bible"}
+{q:"Main message of Jesus?",a:"Love"},
+{q:"Christians believed Jesus was?",a:"Son of God"},
+{q:"Bible section for Jesus life?",a:"New Testament"},
+{q:"Old Testament contains?",a:"Prophets"},
+{q:"Jesus followers believed he?",a:"Resurrected"},
+{q:"Jesus body placed in?",a:"Tomb"},
+{q:"After how many days resurrection?",a:"3"},
+{q:"Christianity spread through?",a:"Teachings"},
+{q:"Jesus opposed?",a:"Injustice"},
+{q:"Main value taught by Jesus?",a:"Compassion"}
 
 ];
 
+let current = 0;
+let score = 0;
+
+function generateOptions(correct){
+  let options = new Set();
+  options.add(correct);
+
+  let wrongOptions = [
+    "Rome","India","Egypt","King","Temple","War","Peace","Law",
+    "Asia","Europe","Leader","God","Church","City","River","Village"
+  ];
+
+  while(options.size < 4){
+    let rand = wrongOptions[Math.floor(Math.random()*wrongOptions.length)];
+    options.add(rand);
+  }
+
+  return [...options].sort(()=>Math.random()-0.5);
+}
+
+function loadQuestion() {
+  if(current >= questions.length){
+    showResult();
+    return;
+  }
+
+  let q = questions[current];
+  document.getElementById("question").innerText = (current+1) + ". " + q.q;
+
+  let opts = generateOptions(q.a);
+
+  let html = "";
+  opts.forEach(opt=>{
+    html += `<button onclick="checkAnswer(this,'${q.a}')">${opt}</button>`;
+  });
+
+  document.getElementById("options").innerHTML = html;
+}
+
+function checkAnswer(btn, correct){
+  let buttons = document.querySelectorAll("button");
+  buttons.forEach(b=>b.disabled=true);
+
+  if(btn.innerText === correct){
+    btn.classList.add("correct");
+    document.getElementById("correctSound").play();
+    score++;
+  } else {
+    btn.classList.add("wrong");
+    document.getElementById("wrongSound").play();
+  }
+
+  setTimeout(()=>{
+    current++;
+    loadQuestion();
+  },1000);
+}
+
+function showResult(){
+  document.querySelector(".quiz-box").style.display="none";
+  let res = document.getElementById("result");
+  res.style.display="block";
+
+  res.innerHTML = `
+  🎉 Great Job! <br><br>
+  Your Score: <b>${score} / ${questions.length}</b>
+  `;
+}
+
+loadQuestion();
+
 </script>
+
+</body>
+</html>
