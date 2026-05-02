@@ -1,133 +1,67 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Quiz</title>
-<style>
-body { text-align:center; font-family:Arial; }
-button { padding:10px; margin:5px; font-size:16px; }
-.correct { background-color:lightgreen; }
-.wrong { background-color:salmon; }
-</style>
-</head>
-
-<body>
-
-<h2>Rise of Christianity Quiz</h2>
-
-<h3 id="question"></h3>
-
-<div id="options"></div>
-
-<h3 id="result"></h3>
-
-<button onclick="nextQ()">Next</button>
-
-<audio id="right" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
-<audio id="wrong" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
-
 <script>
 
-let q = 0;
-let score = 0;
+let questions = [
 
-let quiz = [
-["Who became the undisputed emperor of Rome?","Constantine","Nero","Augustus","Julius Caesar",0],
-["Constantine shifted capital to?","Athens","Constantinople","Rome","Sparta",1],
-["Old name of Constantinople?","Rome","Byzantium","Athens","Jerusalem",1],
-["Christianity became official religion in?","2nd century","3rd century","4th century","5th century",2],
-["Spiritual head of Christians?","King","Pope","Priest","Leader",1],
+/* 1 */ {q:"Who became the undisputed emperor of Rome?", a:"constantine"},
+/* 2 */ {q:"Constantine shifted the capital to?", a:"constantinople"},
+/* 3 */ {q:"Old name of Constantinople?", a:"byzantium"},
+/* 4 */ {q:"Christianity became official religion in which century?", a:"4th"},
+/* 5 */ {q:"Who is the spiritual head of Christians?", a:"pope"},
 
-["Jesus rejected which principle?","Equality","Eye for eye","Peace","Love",1],
-["Jesus taught love for?","Friends only","Enemies only","All people","Rich only",2],
-["Jesus was crucified by?","Greeks","Romans","Egyptians","Persians",1],
-["Governor in Jesus trial?","Herod","Pilate","Nero","Augustus",1],
-["Jesus is called?","King","Messiah","Warrior","Prophet",1],
+/* 6 */ {q:"Jesus rejected which principle?", a:"eye for eye"},
+/* 7 */ {q:"Jesus taught love for whom?", a:"all"},
+/* 8 */ {q:"Jesus was crucified by which empire?", a:"romans"},
+/* 9 */ {q:"Who was the Roman governor in Jesus trial?", a:"pontius pilate"},
+/* 10 */ {q:"Jesus is also called?", a:"messiah"},
 
-["Teachings recorded in?","Vedas","Bible","Gospels","Quran",2],
-["Spread in Palestine by?","Paul","Peter","Mark","Luke",1],
-["Later spread by?","John","Peter","Paul","Luke",2],
-["Early Christians were?","Rulers","Minority","Rich","Powerful",1],
-["They were persecuted by?","Greeks","Romans","Persians","Egyptians",1],
+/* 11 */ {q:"Teachings of Jesus are recorded in?", a:"gospels"},
+/* 12 */ {q:"Who spread Christianity in Palestine?", a:"peter"},
+/* 13 */ {q:"Who spread Christianity later widely?", a:"paul"},
+/* 14 */ {q:"Early Christians were majority or minority?", a:"minority"},
+/* 15 */ {q:"Christians were persecuted by?", a:"romans"},
 
-["Christianity legalized in?","200 CE","313 CE","400 CE","500 CE",1],
-["Constantine defeated?","Nero","Maxentius","Herod","Augustus",1],
-["Jesus born in?","Nazareth","Rome","Bethlehem","Jerusalem",2],
-["Jesus grew up in?","Bethlehem","Nazareth","Rome","Athens",1],
-["Jesus studied?","Greek","Roman","Jewish scriptures","Persian",2],
+/* 16 */ {q:"Christianity became legal in which year?", a:"313"},
+/* 17 */ {q:"Constantine defeated whom?", a:"maxentius"},
+/* 18 */ {q:"Jesus was born in?", a:"bethlehem"},
+/* 19 */ {q:"Jesus grew up in?", a:"nazareth"},
+/* 20 */ {q:"Jesus studied which scriptures?", a:"jewish"},
 
-["John the Baptist was?","Brother","Cousin","Friend","Teacher",1],
-["Jesus baptized in?","Sea","River","Lake","Temple",1],
-["Holy Spirit appeared as?","Fire","Wind","Dove","Light",2],
-["Voice called Jesus?","King","Son","Prophet","Leader",1],
-["Number of disciples?","10","12","14","7",1],
+/* 21 */ {q:"John the Baptist was Jesus'?", a:"cousin"},
+/* 22 */ {q:"Jesus was baptized in a?", a:"river"},
+/* 23 */ {q:"Holy Spirit appeared as?", a:"dove"},
+/* 24 */ {q:"Voice from heaven called Jesus?", a:"son"},
+/* 25 */ {q:"How many disciples did Jesus have?", a:"12"},
 
-["Main teaching?","War","Love","Power","Wealth",1],
-["Jesus taught forgiveness to?","Friends","Enemies","Rich","None",1],
-["Community formed after?","Birth","Death","Resurrection belief","War",2],
-["Resurrection means?","Death","Rise again","Punishment","Sleep",1],
-["Jesus lived in hearts of?","Romans","Followers","Kings","Soldiers",1],
+/* 26 */ {q:"Main teaching of Jesus?", a:"love"},
+/* 27 */ {q:"Jesus taught forgiveness to?", a:"enemies"},
+/* 28 */ {q:"Christian community formed after belief in?", a:"resurrection"},
+/* 29 */ {q:"Resurrection means?", a:"rise again"},
+/* 30 */ {q:"Jesus lived in hearts of?", a:"followers"},
 
-["Christianity spread in?","Asia","Africa","Roman Empire","Europe only",2],
-["Became world religion due to?","War","Teachings","Trade","Kings",1],
-["Medieval means?","Future","Middle","Ancient","Modern",1],
-["Medieval India period?","8th-18th","1st-5th","10th-20th","2nd-6th",0],
-["Early medieval?","1st-5th","8th-13th","13th-18th","5th-8th",1],
+/* 31 */ {q:"Christianity spread across which empire?", a:"roman"},
+/* 32 */ {q:"Christianity became world religion due to?", a:"teachings"},
+/* 33 */ {q:"Meaning of medieval?", a:"middle"},
+/* 34 */ {q:"Medieval period in India started from?", a:"8th"},
+/* 35 */ {q:"Early medieval period range?", a:"8th-13th"},
 
-["Later medieval?","8th-13th","13th-18th","5th-10th","1st-5th",1],
-["Delhi Sultanate?","1200-1526","1500-1800","800-1200","500-1000",0],
-["Mughal phase?","1200-1526","1526-18th","800-1200","1000-1500",1],
-["Europe medieval?","600-1500","200-1000","100-500","800-2000",0],
-["Messiah means?","King","Saviour","Teacher","Warrior",1],
+/* 36 */ {q:"Later medieval period range?", a:"13th-18th"},
+/* 37 */ {q:"Delhi Sultanate period?", a:"1200-1526"},
+/* 38 */ {q:"Mughal period began in?", a:"1526"},
+/* 39 */ {q:"Medieval period in Europe?", a:"600-1500"},
+/* 40 */ {q:"Messiah means?", a:"saviour"},
 
-["Herod was?","King","Governor","Puppet ruler","Priest",2],
-["Jews awaited?","War","Messiah","King","Peace",1],
-["Jesus challenged?","Greek ideas","Jewish traditions","Roman law","Persian culture",1],
-["Teachings were?","Complex","Simple","Strict","Violent",1],
-["Equality of?","Men","Women","Both","None",2],
+/* 41 */ {q:"Herod was a?", a:"puppet ruler"},
+/* 42 */ {q:"Jews were waiting for?", a:"messiah"},
+/* 43 */ {q:"Jesus challenged which traditions?", a:"jewish"},
+/* 44 */ {q:"Teachings of Jesus were?", a:"simple"},
+/* 45 */ {q:"Jesus taught equality of?", a:"both"},
 
-["Christian HQ?","Rome","Vatican City","Paris","Athens",1],
-["St Peter’s Basilica in?","Rome","London","Vatican","Paris",2],
-["Jesus died by?","Hanging","Burning","Crucifixion","Drowning",2],
-["Main idea?","War","Love & Forgiveness","Power","Wealth",1]
+/* 46 */ {q:"Christian headquarters located in?", a:"vatican"},
+/* 47 */ {q:"St Peter's Basilica is in?", a:"vatican"},
+/* 48 */ {q:"Jesus died by?", a:"crucifixion"},
+/* 49 */ {q:"Main idea of Christianity?", a:"forgiveness"},
+/* 50 */ {q:"Holy book containing teachings of Jesus?", a:"bible"}
+
 ];
 
-function loadQ(){
-  document.getElementById("question").innerHTML = quiz[q][0];
-  
-  let optHTML="";
-  for(let i=1;i<=4;i++){
-    optHTML += `<button onclick="check(${i-1},this)">${quiz[q][i]}</button><br>`;
-  }
-  document.getElementById("options").innerHTML = optHTML;
-}
-
-function check(ans,btn){
-  let correct = quiz[q][5];
-  
-  if(ans === correct){
-    btn.classList.add("correct");
-    document.getElementById("right").play();
-    score++;
-  } else {
-    btn.classList.add("wrong");
-    document.getElementById("wrong").play();
-  }
-}
-
-function nextQ(){
-  q++;
-  if(q < quiz.length){
-    loadQ();
-  } else {
-    document.getElementById("question").innerHTML = "Finished!";
-    document.getElementById("options").innerHTML = "";
-    document.getElementById("result").innerHTML = "Score: "+score+" / 50";
-  }
-}
-
-loadQ();
-
 </script>
-
-</body>
-</html>
