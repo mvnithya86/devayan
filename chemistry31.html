@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chemistry Quiz - Set 1</title>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f5f5f5;
+    padding:20px;
+    text-align: center;
+}
+.container{
+    max-width:800px;
+    margin:auto;
+    background:#fff8dc;
+    border:2px solid #e5d7a5;
+    padding:20px;
+    border-radius: 8px;
+    text-align: left;
+}
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.question-number{
+    width:45px;
+    height:45px;
+    background:#f4c542;
+    color:#333;
+    font-size:24px;
+    font-weight:bold;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:8px;
+    margin-bottom:15px;
+}
+#score {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    background: #f4c542;
+    padding: 8px 15px;
+    border-radius: 8px;
+}
+.question{
+    font-size:26px;
+    font-weight:500;
+    margin-bottom:25px;
+    color: #222;
+}
+.options-zone {
+    margin-top: 30px;
+}
+.option-btn {
+    display: block;
+    width: 100%;
+    background: white;
+    border: 3px solid #a02fa8;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 12px 0;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+.option-btn:hover:not([disabled]) {
+    background: #fff0fc;
+}
+#result {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 25px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header-row">
+    <div class="question-number" id="q-num">1</div>
+    <div id="score">Score: 0</div>
+  </div>
+
+  <div class="question" id="q-text">Loading question...</div>
+
+  <div class="options-zone" id="options"></div>
+  <div id="result"></div>
+</div>
+
+<script>
+let questions = [
+  {q: "Matter can be broadly classified into which two categories based on composition?", options: ["Pure and Impure substances", "Solids and Liquids", "Elements and Compounds", "Homogeneous and Heterogeneous"], answer: 0},
+  {q: "A substance made up of only one kind of atoms is known as a/an:", options: ["Element", "Compound", "Mixture", "Alloy"], answer: 0},
+  {q: "Which of the following cannot be broken down into simpler substances by ordinary chemical methods?", options: ["Element", "Compound", "Solution", "Heterogeneous Mixture"], answer: 0},
+  {q: "Pure substances include which of the following?", options: ["Both Elements and Compounds", "Elements only", "Compounds only", "Mixtures and Solutions"], answer: 0},
+  {q: "An example of an impure substance is a:", options: ["Mixture", "Element", "Compound", "Pure Metal"], answer: 0},
+  {q: "What is the Latin name for Iron from which its symbol 'Fe' is derived?", options: ["Ferrum", "Natrium", "Kalium", "Cuprum"], answer: 0},
+  {q: "The abbreviation used to represent an element is called its:", options: ["Symbol", "Formula", "Valency", "Equation"], answer: 0},
+  {q: "Who was the first scientist to introduce a system of chemical symbols based on the letters of the element's name?", options: ["J.J. Berzelius", "John Dalton", "Robert Boyle", "Antoine Lavoisier"], answer: 0},
+  {q: "What is the correct symbol for Sodium?", options: ["Na", "So", "S", "Nu"], answer: 0},
+  {q: "The symbol 'K' represents which element?", options: ["Potassium", "Krypton", "Calcium", "Phosphorus"], answer: 0},
+  {q: "If a symbol consists of two letters, how must they be written according to IUPAC rules?", options: ["First letter capital, second letter lowercase", "Both letters capital", "Both letters lowercase", "First letter lowercase, second letter capital"], answer: 0},
+  {q: "Which element's symbol is derived from the Latin name 'Argentum'?", options: ["Silver", "Gold", "Lead", "Mercury"], answer: 0},
+  {q: "What is the symbol for Gold?", options: ["Au", "Gd", "Go", "Ag"], answer: 0},
+  {q: "The symbol 'Pb' represents which metal?", options: ["Lead", "Phosphorus", "Plutonium", "Platinum"], answer: 0},
+  {q: "Elements that show properties of both metals and non-metals are called:", options: ["Metalloids", "Noble Gases", "Alloys", "Transition Elements"], answer: 0},
+  {q: "Which of the following elements is classified as a metalloid?", options: ["Silicon", "Iron", "Oxygen", "Helium"], answer: 0},
+  {q: "Mercury is unique among metals because it exists as a ______ at room temperature.", options: ["Liquid", "Gas", "Solid", "Plasma"], answer: 0},
+  {q: "Which non-metal is a good conductor of electricity?", options: ["Graphite (Carbon)", "Sulfur", "Phosphorus", "Oxygen"], answer: 0},
+  {q: "What is the symbol for Copper?", options: ["Cu", "Co", "Cp", "Cr"], answer: 0},
+  {q: "The Latin name 'Hydrargyrum' gives rise to the symbol for which liquid element?", options: ["Mercury", "Hydrogen", "Helium", "Bromine"], answer: 0},
+  {q: "Which of the following represents a non-metallic element that is liquid at room temperature?", options: ["Bromine", "Mercury", "Chlorine", "Iodine"], answer: 0},
+  {q: "The property of metals being drawn into thin wires is called:", options: ["Ductility", "Malleability", "Sonority", "Luster"], answer: 0},
+  {q: "The symbol 'W' represents Wolfram, which is the chemical name for:", options: ["Tungsten", "Water", "Zinc", "Tin"], answer: 0},
+  {q: "Which pure substance contains different elements combined chemically in a fixed proportion?", options: ["Compound", "Element", "Homogeneous Mixture", "Suspension"], answer: 0},
+  {q: "What is the symbol for the non-metal Sulfur?", options: ["S", "Su", "Sl", "Sf"], answer: 0}
+];
+
+let current = 0; let score = 0; let shuffledOptions = []; let correctText = "";
+let clickSound = new Audio("https://actions.google.com/sounds/v1/cartoon/pop.ogg");
+let correctSound = new Audio("https://actions.google.com/sounds/v1/cartoon/boing.ogg");
+let wrongSound = new Audio("https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg");
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function loadQuestion() {
+  if (current >= questions.length) {
+    document.getElementById("options").innerHTML = "";
+    document.getElementById("q-text").innerHTML = "🎉 Quiz Set 1 Complete!";
+    document.getElementById("result").innerHTML = "Final Score: " + score + " / " + questions.length;
+    return;
+  }
+  document.getElementById("q-num").innerText = current + 1;
+  let q = questions[current];
+  document.getElementById("q-text").innerText = q.q;
+
+  correctText = q.options[q.answer];
+  shuffledOptions = shuffle([...q.options]);
+
+  let optionsHtml = "";
+  shuffledOptions.forEach((opt, idx) => {
+    optionsHtml += `<button class="option-btn" onclick="check(${idx})">${opt}</button>`;
+  });
+  document.getElementById("options").innerHTML = optionsHtml;
+  document.getElementById("result").innerText = "";
+}
+
+function check(idx) {
+  clickSound.play().catch(e=>{});
+  let selectedText = shuffledOptions[idx];
+  let btns = document.querySelectorAll(".option-btn");
+
+  btns.forEach(btn => {
+    btn.disabled = true;
+    if (btn.innerText === correctText) {
+      btn.style.background = "#a8e6a3"; 
+    }
+  });
+
+  if (selectedText === correctText) {
+    score++;
+    document.getElementById("score").innerText = "Score: " + score;
+    correctSound.play().catch(e=>{});
+  } else {
+    btns[idx].style.background = "#f35be7"; 
+    btns[idx].style.color = "white";
+    wrongSound.play().catch(e=>{});
+  }
+
+  setTimeout(() => {
+    current++;
+    loadQuestion();
+  }, 2000);
+}
+loadQuestion();
+</script>
+</body>
+</html>
