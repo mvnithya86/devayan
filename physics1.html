@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Middle School Physics: Measurement Challenge</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #eef2f7;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #2c3e50;
+    }
+
+    #score {
+      font-size: 18px;
+      font-weight: bold;
+      color: #34495e;
+      margin-bottom: 15px;
+    }
+
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 550px;
+      margin: auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      background: #fdfefe;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover:not([disabled]) {
+      background: #f2f4f4;
+    }
+
+    #result {
+      font-size: 22px;
+      font-weight: bold;
+      color: #27ae60;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>📏 Chapter 1: Physical Quantities & Measurement</h2>
+
+<div id="score">Score: 0</div>
+
+<div class="box" id="quiz"></div>
+
+<div id="result"></div>
+
+<script>
+
+let questions = [
+  // 1. Volume of Regular Solids (Reference: IMG_20260630_143446.jpg)
+  {q: "Find the volume of a wooden block with dimensions 3.0 m x 1.5 m x 50 cm.", options: ["2.25 m³", "225 m³", "2.25 cm³"], answer: 0},
+  {q: "A concrete block measures 2 m by 1 m by 0.5 m. What is its volume?", options: ["1.0 m³", "10 m³", "0.1 m³"], answer: 0},
+  {q: "Convert a volume of 450 cm³ into cubic meters (m³).", options: ["4.5 x 10⁻⁴ m³", "4.5 x 10⁻⁶ m³", "4.5 x 10⁻² m³"], answer: 0},
+  {q: "Convert a volume of 8.2 x 10⁻⁴ m³ into cm³.", options: ["820 cm³", "82 cm³", "8200 cm³"], answer: 0},
+  {q: "A box has a volume of 500 cm³. What is this volume in liters (L)? (Hint: 1000 cm³ = 1 L)", options: ["0.5 L", "5.0 L", "0.05 L"], answer: 0},
+
+  // 2. Measuring Cylinder & Displacements (Reference: IMG_20260630_143448.jpg / IMG_20260630_143504.jpg)
+  {q: "Water in a cylinder reads 40 mL. A stone is submerged, raising the level to 65 mL. What is the volume of the stone?", options: ["25 cm³", "25 m³", "105 cm³"], answer: 0},
+  {q: "A measuring cylinder filled to 22 mL drops to 14 mL when a piece of metal is removed. Find the volume of the metal.", options: ["8 cm³", "8 mL³", "36 cm³"], answer: 0},
+  {q: "If 1 mL is equivalent to 1 cm³, what is the volume in m³ of a liquid measuring exactly 150 mL?", options: ["1.5 x 10⁻⁴ m³", "1.5 x 10⁻⁶ m³", "150 m³"], answer: 0},
+
+  // 3. Area of Regular/Irregular Shapes (Reference: IMG_20260630_143448.jpg)
+  {q: "Find the approximate area of a circular track if its diameter is 20 m. (Take &pi; = 3.14)", options: ["314 m²", "1256 m²", "62.8 m²"], answer: 0},
+  {q: "On graph paper, an irregular leaf covers 12 complete squares and 8 half-or-more squares. Find its approximate area if 1 square = 1 cm².", options: ["20 cm²", "16 cm²", "12 cm²"], answer: 0},
+  {q: "An irregular lamina mapped on a grid contains 15 full squares and 10 squares that are exactly half or more. Total approximate area = ?", options: ["25 cm²", "20 cm²", "15 cm²"], answer: 0},
+
+  // 4. Density, Mass, Volume Calculations (Reference: IMG_20260630_143448.jpg / IMG_20260630_143504.jpg)
+  {q: "An iron bolt has a mass of 156 g and a volume of 20 cm³. Find its density.", options: ["7.8 g cm⁻³", "7.8 kg m⁻³", "0.128 g cm⁻³"], answer: 0},
+  {q: "Convert a density of 2.7 g cm⁻³ into S.I. units (kg m⁻³).", options: ["2700 kg m⁻³", "27 kg m⁻³", "0.0027 kg m⁻³"], answer: 0},
+  {q: "The density of silver is 10.5 g cm⁻³. Calculate the mass of a silver coin with a volume of 4 cm³.", options: ["42 g", "2.625 g", "420 g"], answer: 0},
+  {q: "Find the volume of a wooden block if its mass is 72 g and its density is 0.8 g cm⁻³.", options: ["90 cm³", "57.6 cm³", "0.011 cm³"], answer: 0},
+  {q: "A bottle holds 2 kg of water. If the density of water is 1 g cm⁻³ (1000 kg m⁻³), what is the volume of the water in m³?", options: ["0.002 m³", "2 m³", "2000 m³"], answer: 0},
+  {q: "A container has a volume of 4 m³. Find the mass of air inside if the density of air is 1.2 kg m⁻³.", options: ["4.8 kg", "3.33 kg", "4800 g"], answer: 0},
+
+  // 5. Speed, Distance, Time Calculations (Reference: IMG_20260630_143454.jpg / IMG_20260630_143456.jpg)
+  {q: "Convert a speed of 72 km h⁻¹ into m s⁻¹.", options: ["20 m s⁻¹", "26 m s⁻¹", "200 m s⁻¹"], answer: 0},
+  {q: "Convert a speed of 15 m s⁻¹ into km h⁻¹.", options: ["54 km h⁻¹", "4.16 km h⁻¹", "150 km h⁻¹"], answer: 0},
+  {q: "A delivery van travels a distance of 150 km in 3 hours. Find its speed in m s⁻¹.", options: ["13.89 m s⁻¹", "50 m s⁻¹", "18 m s⁻¹"], answer: 0},
+  {q: "A cyclist moves at a steady speed of 6 m s⁻¹. How far will they travel in 2 minutes?", options: ["720 m", "12 m", "120 m"], answer: 0},
+  {q: "How long will it take a car traveling at 90 km h⁻¹ to cover a distance of 4.5 km?", options: ["3 minutes", "12 minutes", "0.05 minutes"], answer: 0},
+  {q: "A drone flies 240 meters in 12 seconds. What is its speed?", options: ["20 m s⁻¹", "2880 m s⁻¹", "0.05 m s⁻¹"], answer: 0},
+  {q: "Car A goes 600 m in 30 seconds. Car B goes 1 km in 1 minute. Which car is moving faster?", options: ["Car A (20 m s⁻¹)", "Car B (16.67 m s⁻¹)", "Both have the same speed"], answer: 0},
+  {q: "Which of the following describes the correct formula for density?", options: ["Density = Mass / Volume", "Density = Volume / Mass", "Density = Mass x Volume"], answer: 0}
+];
+
+let current = 0;
+let score = 0;
+
+let currentShuffledOptions = [];
+let correctTextForCurrentQuestion = "";
+
+// Sound Effects
+let clickSound = new Audio("https://actions.google.com/sounds/v1/cartoon/pop.ogg");
+let correctSound = new Audio("https://actions.google.com/sounds/v1/cartoon/boing.ogg");
+let wrongSound = new Audio("https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg");
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function loadQuestion() {
+  if (current >= questions.length) {
+    document.getElementById("quiz").innerHTML = "";
+    document.getElementById("result").innerHTML =
+      "🎉 Quiz Complete! Final Score: " + score + " / " + questions.length;
+    return;
+  }
+
+  let q = questions[current];
+  correctTextForCurrentQuestion = q.options[q.answer];
+  currentShuffledOptions = shuffle([...q.options]);
+
+  let html = `<p><b>Question ${current + 1}:</b><br>${q.q}</p>`;
+  currentShuffledOptions.forEach((opt, index) => {
+    html += `<button onclick="check(${index})">${opt}</button>`;
+  });
+
+  document.getElementById("quiz").innerHTML = html;
+}
+
+function check(selectedIndex) {
+  clickSound.play().catch(e => {});
+  let selectedText = currentShuffledOptions[selectedIndex];
+  let buttons = document.querySelectorAll("#quiz button");
+
+  buttons.forEach((btn, idx) => {
+    btn.disabled = true;
+    let btnText = currentShuffledOptions[idx];
+
+    if (btnText === correctTextForCurrentQuestion) {
+      btn.style.background = "#a8e6a3"; // Green for correct answer
+    }
+    if (idx === selectedIndex && selectedText !== correctTextForCurrentQuestion) {
+      btn.style.background = "#ffb3b3"; // Red for wrong selection
+    }
+  });
+
+  if (selectedText === correctTextForCurrentQuestion) {
+    score++;
+    correctSound.play().catch(e => {});
+  } else {
+    wrongSound.play().catch(e => {});
+  }
+
+  document.getElementById("score").innerText = "Score: " + score;
+
+  setTimeout(() => {
+    current++;
+    loadQuestion();
+  }, 1500); // 1.5 seconds delay to let students see the correct answer
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+</html>
