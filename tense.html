@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICSE Grade VII - 100 Tenses Mastery Quiz</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .quiz-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .progress-bar-container {
+            width: 100%;
+            background-color: #e2e8f0;
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb, #1d4ed8);
+            width: 10%;
+            transition: width 0.3s ease;
+        }
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 5px;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+        .page-indicator {
+            text-align: center;
+            color: #64748b;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+        .section-desc {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e3a8a;
+            background-color: #eff6ff;
+            padding: 12px 15px;
+            border-left: 5px solid #3b82f6;
+            margin-bottom: 25px;
+            border-radius: 0 6px 6px 0;
+            line-height: 1.4;
+        }
+        .q-block {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .q-text {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        @media(min-width: 600px) {
+            .options-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 11px 15px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        .option-label:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+        .option-label input {
+            margin-right: 12px;
+            accent-color: #3b82f6;
+        }
+        .correct-ans {
+            background-color: #d1fae5 !important;
+            border-color: #10b981 !important;
+            color: #065f46 !important;
+            font-weight: 600;
+        }
+        .incorrect-ans {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #991b1b !important;
+        }
+        .footer-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        .btn {
+            padding: 12px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        .btn-check {
+            background-color: #059669;
+            color: white;
+        }
+        .btn-check:hover {
+            background-color: #047857;
+        }
+        .btn-nav {
+            background-color: #2563eb;
+            color: white;
+        }
+        .btn-nav:hover {
+            background-color: #1d4ed8;
+        }
+        .btn:disabled {
+            background-color: #cbd5e1 !important;
+            color: #94a3b8 !important;
+            cursor: not-allowed;
+        }
+        .page-result {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-align: center;
+            font-size: 16px;
+        }
+        .success-bg {
+            background-color: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        #final-screen {
+            display: none;
+            text-align: center;
+            padding: 30px 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <h1 id="mainTitle">Tense Masterclass (100 Questions)</h1>
+    <div class="page-indicator" id="pageIndicator">Page 1 of 10</div>
+
+    <form id="quizForm">
+        <div id="dynamicPageContent"></div>
+
+        <div id="final-screen">
+            <div style="font-size: 54px; margin-bottom: 15px;">🏆</div>
+            <div style="font-size: 26px; color: #1e3a8a; font-weight: 800; margin-bottom: 15px;">Evaluation Complete!</div>
+            <p id="finalScoreText" style="font-size: 20px; color: #334155; margin-bottom: 25px; line-height: 1.6;"></p>
+            <button type="button" class="btn btn-nav" onclick="resetQuiz()">Restart 100-Question Matrix</button>
+        </div>
+
+        <div class="footer-controls" id="footerControls">
+            <button type="button" class="btn btn-nav" id="prevBtn" onclick="navigatePage(-1)">Previous</button>
+            <button type="button" class="btn btn-check" id="checkBtn" onclick="checkPageAnswers()">Check Answers</button>
+            <button type="button" class="btn btn-nav" id="nextBtn" onclick="navigatePage(1)">Next Page</button>
+        </div>
+        
+        <div class="page-result" id="pageResultBox"></div>
+    </form>
+</div>
+
+<script>
+// --- 100-QUESTION DATABASE META MATRIX ---
+const quizData = [
+    // PAGE 1: STATIVE VERB TRAPS
+    { section: "Page 1: Stative Verb Traps (Cognition & Perception Constraints)", questions: [
+        { q: "1. I __________ this complex geometry theorem at this exact moment.", o: ["am not understanding", "do not understand", "have not been understanding", "not understand"], a: "B" },
+        { q: "2. Can't you see Ritika? She __________ a fascinating thriller novel under the banyan tree.", o: ["reads", "is reading", "has read", "read"], a: "B" },
+        { q: "3. The baked pasta __________ mouth-wateringly delicious. How did you prepare it?", o: ["is tasting", "tastes", "has been tasting", "taste"], a: "B" },
+        { q: "4. Keeping physically active __________ entirely on regular daily exercises.", o: ["is depending", "depends", "has depended", "depend"], a: "B" },
+        { q: "5. I __________ a sudden agonizing toothache in my lower jaw right now.", o: ["am feeling", "feel", "have been feeling", "was feeling"], a: "B" },
+        { q: "6. Right now, our primary inspector __________ that something is wrong with the accounts.", o: ["is suspecting", "suspects", "has suspected", "suspect"], a: "B" },
+        { q: "7. This wooden chest __________ entirely to my late great-grandfather.", o: ["is belonging", "belongs", "has been belonging", "belong"], a: "B" },
+        { q: "8. I __________ that the upcoming summer weather is going to break all previous records.", o: ["am hearing", "hear", "have been hearing", "was hearing"], a: "B" },
+        { q: "9. Look over there! The laboratory assistant __________ the chemical balance of the solution manually.", o: ["is tasting", "tastes", "has tasted", "tasted"], a: "A" },
+        { q: "10. He currently __________ a massive multi-national shipping company.", o: ["is owning", "owns", "has been owning", "own"], a: "B" }
+    ]},
+    // PAGE 2: PRESENT PERFECT RELEVANCE
+    { section: "Page 2: Present Perfect vs. Simple Past (Immediate Relevance & Timelines)", questions: [
+        { q: "11. Rupa __________ her master's degree back in 2015.", o: ["had finished", "has finished", "finished", "was finishing"], a: "C" },
+        { q: "12. Jonas __________ seven long science fiction volumes last week.", o: ["had read", "has read", "read", "was reading"], a: "C" },
+        { q: "13. Ouch! I __________ my palm with the edge of this metal ruler!", o: ["cut", "had cut", "am cutting", "have just cut"], a: "D" },
+        { q: "14. Look at the mud on his uniform! He __________ football in the rain.", o: ["had played", "has been playing", "plays", "will have played"], a: "B" },
+        { q: "15. Sana and Rosa __________ in eight different sovereign countries up to this point.", o: ["had lived", "have lived", "lived", "were living"], a: "B" },
+        { q: "16. Thomas __________ Australia several times when he was a young boy.", o: ["had visited", "has visited", "visited", "was visiting"], a: "C" },
+        { q: "17. The project head __________ from the regional corporate desk five minutes ago.", o: ["has called", "called", "had called", "was calling"], a: "B" },
+        { q: "18. We __________ any major technological issues with our server so far this term.", o: ["did not face", "had not faced", "have not faced", "are not facing"], a: "C" },
+        { q: "19. I am certain that I __________ this distinct individual somewhere before.", o: ["saw", "have seen", "had seen", "was seeing"], a: "B" },
+        { q: "20. The bell __________ just now; please collect the answer scripts.", o: ["rang", "has just rung", "had rung", "is ringing"], a: "B" }
+    ]},
+    // PAGE 3: PAST PERFECT SEQUENCING
+    { section: "Page 3: Relative Past Sequencing (Past Perfect Mechanics)", questions: [
+        { q: "21. The clever shoplifters __________ through the back window before the perimeter alarms rang.", o: ["escaped", "were escaping", "had escaped", "have escaped"], a: "C" },
+        { q: "22. The watchmen __________ the compound for hours when the fire broke out.", o: ["had been patrolling", "patrolled", "were patrolling", "have patrolled"], a: "A" },
+        { q: "23. By the time the doctor reached the spot, the local residents __________ first aid.", o: ["administered", "had administered", "were administering", "have administered"], a: "B" },
+        { q: "24. The train __________ the platform before we arrived at the terminal counter.", o: ["left", "had already left", "has left", "was leaving"], a: "B" },
+        { q: "25. She realized that she __________ her entry card at her desk.", o: ["forgot", "had forgotten", "has forgotten", "was forgetting"], a: "B" },
+        { q: "26. When we checked the locker, someone __________ the historical silver artifacts.", o: ["stole", "had stolen", "has stolen", "was stealing"], a: "B" },
+        { q: "27. The project team __________ the blueprints long before the management evaluated them.", o: ["drafted", "had drafted", "has drafted", "were drafting"], a: "B" },
+        { q: "28. He failed the test because he __________ his notes during the term.", o: ["did not revise", "had not revised", "has not revised", "was not revising"], a: "B" },
+        { q: "29. As soon as the system operator __________ the warning, he shut down the generator.", o: ["noticed", "had noticed", "was noticing", "has noticed"], a: "A" },
+        { q: "30. The field workers reached shelter after the fierce storm __________ completely.", o: ["subsided", "had subsided", "was subsiding", "has subsided"], a: "B" }
+    ]},
+    // PAGE 4: FUTURE PERFECT DEADLINES
+    { section: "Page 4: Future Perfect Boundaries (Target Execution Parameters)", questions: [
+        { q: "31. By the time the specialized historian reaches the venue next month, we __________ the coins.", o: ["will verify", "will have verified", "verify", "will be verifying"], a: "B" },
+        { q: "32. By the conclusion of this ongoing winter semester, the board __________ the computer wing.", o: ["establishes", "will have established", "is establishing", "had established"], a: "B" },
+        { q: "33. Tomorrow evening, the group __________ their comprehensive assignment matrix.", o: ["submits", "will have submitted", "submitted", "are submitting"], a: "B" },
+        { q: "34. By next year, our structural engineers __________ the highway restoration project.", o: ["will complete", "will have completed", "completes", "will be completing"], a: "B" },
+        { q: "35. Do not worry; by tomorrow morning, the maintenance team __________ the leakage.", o: ["will fix", "will have fixed", "fixes", "is fixing"], a: "B" },
+        { q: "36. By midnight, the emergency staff __________ across the entire block.", o: ["will clear", "will have cleared", "clears", "clear"], a: "B" },
+        { q: "37. In three weeks' time, my younger brother __________ his academic program layout.", o: ["will finalize", "will have finalized", "finalizes", "finalized"], a: "B" },
+        { q: "38. By the time the gates open, the early ticket buyers __________ for four hours.", o: ["will wait", "will have been waiting", "wait", "are waiting"], a: "B" },
+        { q: "39. I am sure that by next Friday, the legal team __________ the lease terms.", o: ["will draft", "will have drafted", "drafts", "is drafting"], a: "B" },
+        { q: "40. By the end of this month, she __________ here for a decade.", o: ["will work", "will have been working", "works", "is working"], a: "B" }
+    ]},
+    // PAGE 5: CONDITIONAL CLAUSE LAWS
+    { section: "Page 5: Conditional Clause Structural Laws (Auxiliary Prohibitions)", questions: [
+        { q: "41. Jeevan will gladly assist you with the work if you __________ him politely tomorrow.", o: ["ask", "will ask", "are asking", "asked"], a: "A" },
+        { q: "42. If the emergency rescue squad __________ the road by noon, vehicles will move freely.", o: ["will clear", "cleared", "clears", "is clearing"], a: "C" },
+        { q: "43. We will lose the match if our opening batsman __________ quickly.", o: ["will not score", "does not score", "has not scored", "is not scoring"], a: "B" },
+        { q: "44. If she __________ a full academic scholarship next month, she will head to Paris.", o: ["will secure", "secured", "secures", "is securing"], a: "C" },
+        { q: "45. Plants wither rapidly if they __________ sufficient water regularly.", o: ["will not receive", "do not receive", "aren't receiving", "haven't received"], a: "B" },
+        { q: "46. If the weather conditions __________ stable, the rocket will blast off at midnight.", o: ["will remain", "remain", "remained", "are remaining"], a: "B" },
+        { q: "47. The principal will present a trophy if our team __________ the final tomorrow.", o: ["will win", "wins", "won", "is winning"], a: "B" },
+        { q: "48. If you __________ the switch board, the automation layer boots up.", o: ["will press", "press", "pressed", "are pressing"], a: "B" },
+        { q: "49. You will miss the bus if you __________ immediately.", o: ["will not run", "do not run", "aren't running", "didn't run"], a: "B" },
+        { q: "50. If the inspector __________ a dropped glove near the door, he will seal the room.", o: ["will find", "finds", "found", "is finding"], a: "B" }
+    ]},
+    // PAGE 6: HABITS VS TEMPORARY PHENOMENA
+    { section: "Page 6: Adverbs of Frequency vs. Mid-Action Shifts", questions: [
+        { q: "51. My father usually __________ me a thoughtful present for Diwali.", o: ["is giving", "gives", "has given", "was giving"], a: "B" },
+        { q: "52. My mother always goes to the market alone, but today I __________ her.", o: ["am accompanying", "accompany", "accompanied", "will have accompanied"], a: "A" },
+        { q: "53. We __________ the newspaper online these days due to shipping delays.", o: ["are reading", "read", "have read", "were reading"], a: "B" },
+        { q: "54. Archana always __________ her bicycle to the school compound.", o: ["is riding", "rides", "has ridden", "ride"], a: "B" },
+        { q: "55. Our neighbor, Mr. Sinha, __________ for a brisk jog in the park every morning.", o: ["is going", "goes", "has gone", "go"], a: "B" },
+        { q: "56. The moon __________ around the earth in a stable loop.", o: ["is revolving", "revolves", "has revolved", "revolve"], a: "B" },
+        { q: "57. I generally stay at home on Sundays, but this weekend I __________ a farm.", o: ["visit", "am visiting", "have visited", "visited"], a: "B" },
+        { q: "58. He __________ an early train to office every single workday.", o: ["is catching", "catches", "has caught", "catch"], a: "B" },
+        { q: "59. The water line __________ at one hundred degrees celsius.", o: ["is boiling", "boils", "has boiled", "boil"], a: "B" },
+        { q: "60. She usually speaks Kannada, but right now she __________ in English.", o: ["speaks", "is speaking", "has spoken", "spoke"], a: "B" }
+    ]},
+    // PAGE 7: FUTURE CONTINUOUS DURATION
+    { section: "Page 7: Future Continuous Duration Fields (Ongoing Future States)", questions: [
+        { q: "61. At exactly this time tomorrow afternoon, our group __________ across the Gir reserve.", o: ["will travel", "travels", "will be traveling", "will have traveled"], a: "C" },
+        { q: "62. Do not call her at 9:00 p.m. because she __________ her lines for the performance.", o: ["will be rehearsing", "rehearses", "will have rehearsed", "rehearsed"], a: "A" },
+        { q: "63. This time next week, we __________ our winter holidays in the mountains.", o: ["will enjoy", "will be enjoying", "enjoy", "will have enjoyed"], a: "B" },
+        { q: "64. When you step out of the terminal, I __________ near the main exit sign.", o: ["will stand", "will be standing", "stand", "am standing"], a: "B" },
+        { q: "65. Tomorrow morning, the engineers __________ telemetry data from the satellite.", o: ["will analyze", "will be analyzing", "analyze", "analyzed"], a: "B" },
+        { q: "66. They __________ for their final evaluation papers all through next weekend.", o: ["will study", "will be studying", "study", "will have studied"], a: "B" },
+        { q: "67. At midnight tonight, the city workers __________ the blocked tracks.", o: ["will clear", "will be clearing", "clears", "cleared"], a: "B" },
+        { q: "68. Don't come to his house at dinner time; he __________ his favorite sports show.", o: ["will watch", "will be watching", "watches", "watched"], a: "B" },
+        { q: "69. This time tomorrow, our green club volunteers __________ saplings in the park.", o: ["will plant", "will be planting", "plant", "planted"], a: "B" },
+        { q: "70. While you are sleeping tonight, our automated system __________ all files.", o: ["will back up", "will be backing up", "backs up", "backed up"], a: "B" }
+    ]},
+    // PAGE 8: FIXED SCHEDULE LAWS
+    { section: "Page 8: Fixed Public Timetables vs. Personal Intentions", questions: [
+        { q: "71. Our school's annual play __________ at 6:00 p.m. tomorrow evening according to the circular.", o: ["will be starting", "starts", "is started", "started"], a: "B" },
+        { q: "72. They __________ the residential layout tomorrow; their baggage is packed.", o: ["vacate", "vacated", "are vacating", "will have vacated"], a: "C" },
+        { q: "73. The international flight to London __________ at 11:30 p.m. tonight.", o: ["leaves", "will be leaving", "left", "is left"], a: "A" },
+        { q: "74. Next term __________ on the first Monday of October.", o: ["will be starting", "starts", "is starting", "started"], a: "B" },
+        { q: "75. We __________ a special dinner for the visiting delegates this Saturday evening.", o: ["host", "are hosting", "hosted", "will have hosted"], a: "B" },
+        { q: "76. The bank __________ at 4:00 p.m. daily, including tomorrow.", o: ["closes", "will close", "is closing", "closed"], a: "A" },
+        { q: "77. My cousins __________ from Bangalore this coming weekend.", o: ["arrive", "are arriving", "arrived", "will have arrived"], a: "B" },
+        { q: "78. The local museum exhibition __________ next Tuesday morning.", o: ["concludes", "will be concluding", "concluded", "is concluding"], a: "A" },
+        { q: "79. I __________ the chief architect for lunch tomorrow afternoon.", o: ["meet", "am meeting", "met", "will have met"], a: "B" },
+        { q: "80. According to the railway chart, the express train __________ on platform three.", o: ["arrives", "will arrive", "is arriving", "arrived"], a: "A" }
+    ]},
+    // PAGE 9: PAST CONTINUOUS INTERRUPTIONS
+    { section: "Page 9: Past Continuous Interruption Fields (Overlapping Actions)", questions: [
+        { q: "81. While my father __________ to secure the windows, a massive tree branch snapped.", o: ["tried", "was trying", "had tried", "has been trying"], a: "B" },
+        { q: "82. As the spacecraft __________ through the upper atmosphere, a communication glitch developed.", o: ["ascended", "was ascending", "had ascended", "has ascended"], a: "B" },
+        { q: "83. While the forensic experts __________ for fingerprints, the inspector found a dropped glove.", o: ["searched", "were searching", "had searched", "have searched"], a: "B" },
+        { q: "84. While Rohan __________ the old attic, he stumbled upon an iron chest.", o: ["cleaned", "was cleaning", "had cleaned", "has been cleaning"], a: "B" },
+        { q: "85. We __________ in complete darkness when the power grid suddenly failed.", o: ["sat", "were sitting", "had sat", "have been sitting"], a: "B" },
+        { q: "86. While the interior crew __________ the reading halls, the delivery truck arrived.", o: ["painted", "were painting", "had painted", "are painting"], a: "B" },
+        { q: "87. The audience cheered loudly while our star batsman __________ out on the pitch.", o: ["stepped", "was stepping", "had stepped", "steps"], a: "B" },
+        { q: "88. While Chef Mira __________ her dessert, her mixer suddenly stopped working.", o: ["prepared", "was preparing", "had prepared", "is preparing"], a: "B" },
+        { q: "89. While the children __________ pits in the soil, the nursery truck arrived.", o: ["dug", "were digging", "had dug", "are digging"], a: "B" },
+        { q: "90. While I __________ through the old photographs, my brother entered the room.", o: ["sorted", "was sorting", "had sorted", "am sorting"], a: "B" }
+    ]},
+    // PAGE 10: PERFECT CONTINUOUS TIMELINES
+    { section: "Page 10: Perfect Continuous Timelines (Sustained Action Frameworks)", questions: [
+        { q: "91. Our school library __________ a massive renovation for the past six months.", o: ["undergoes", "has been undergoing", "is undergoing", "underwent"], a: "B" },
+        { q: "92. Our green club volunteers __________ systematically to restore the park since last winter.", o: ["worked", "have been working", "are working", "had worked"], a: "B" },
+        { q: "93. The wind __________ fiercely through the trees all evening before the storm hit.", o: ["howled", "had been howling", "was howling", "has been howling"], a: "B" },
+        { q: "94. For the past month, the theater club students __________ their lines carefully.", o: ["rehearsed", "have been rehearsing", "are rehearsing", "had rehearsed"], a: "B" },
+        { q: "95. Our star batsman __________ relentlessly under the hot sun for three weeks before the final.", o: ["trained", "had been training", "was training", "has been training"], a: "B" },
+        { q: "96. Scientists at the space agency __________ the telemetry logs for twenty hours before launch.", o: ["monitored", "had been monitoring", "were monitoring", "have monitored"], a: "B" },
+        { q: "97. Before entering the contest, Chef Mira __________ with recipes for nearly a year.", o: ["experimented", "had been experimenting", "was experimenting", "has been experimenting"], a: "B" },
+        { q: "98. He looks exhausted because he __________ research papers all night.", o: ["wrote", "has been writing", "is writing", "had written"], a: "B" },
+        { q: "99. The research unit __________ this micro-project track since 2024.", o: ["manages", "has been managing", "is managing", "managed"], a: "B" },
+        { q: "100. By next December, she __________ on this book project for over two years.", o: ["will work", "will have been working", "is working", "works"], a: "B" }
+    ]}
+];
+
+let currentPage = 1;
+const totalPages = 10;
+let totalScore = 0;
+const pageStatus = {}; // Keeps track of check states per page
+
+function renderPage() {
+    const pageData = quizData[currentPage - 1];
+    const container = document.getElementById('dynamicPageContent');
+    
+    let html = `<div class="section-desc">${pageData.section}</div>`;
+    
+    pageData.questions.forEach((qObj, index) => {
+        const qIndex = (currentPage - 1) * 10 + index + 1;
+        html += `
+            <div class="q-block" id="qBlock_${qIndex}" data-correct="${qObj.a}">
+                <div class="q-text">${qObj.q}</div>
+                <div class="options-container">
+                    <label class="option-label"><input type="radio" name="q_${qIndex}" value="A"> A) ${qObj.o[0]}</label>
+                    <label class="option-label"><input type="radio" name="q_${qIndex}" value="B"> B) ${qObj.o[1]}</label>
+                    <label class="option-label"><input type="radio" name="q_${qIndex}" value="C"> C) ${qObj.o[2]}</label>
+                    <label class="option-label"><input type="radio" name="q_${qIndex}" value="D"> D) ${qObj.o[3]}</label>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+    updateUIControls();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateUIControls() {
+    document.getElementById('pageIndicator').innerText = `Page ${currentPage} of ${totalPages}`;
+    document.getElementById('progressBar').style.width = `${(currentPage / totalPages) * 100}%`;
+    
+    document.getElementById('prevBtn').disabled = (currentPage === 1);
+    
+    // Lock/Unlock control flow based on completion state
+    const isChecked = pageStatus[currentPage];
+    document.getElementById('nextBtn').disabled = !isChecked;
+    document.getElementById('checkBtn').style.display = isChecked ? "none" : "inline-block";
+    
+    const resultBox = document.getElementById('pageResultBox');
+    if (isChecked) {
+        resultBox.style.display = "block";
+        resultBox.className = "page-result success-bg";
+        resultBox.innerText = `Answers evaluated for Page ${currentPage}! Press 'Next Page' to proceed.`;
+    } else {
+        resultBox.style.display = "none";
+    }
+}
+
+function navigatePage(dir) {
+    currentPage += dir;
+    renderPage();
+}
+
+function checkPageAnswers() {
+    const startIndex = (currentPage - 1) * 10 + 1;
+    const endIndex = currentPage * 10;
+    let pageValid = true;
+    
+    // Verify all 10 inputs on the current active view are filled out
+    for (let i = startIndex; i <= endIndex; i++) {
+        const selected = document.querySelector(`input[name="q_${i}"]:checked`);
+        if (!selected) { pageValid = false; break; }
+    }
+    
+    if (!pageValid) {
+        alert("Please complete all 10 questions on this page before checking your score!");
+        return;
+    }
+    
+    let correctThisPage = 0;
+    
+    for (let i = startIndex; i <= endIndex; i++) {
+        const block = document.getElementById(`qBlock_${i}`);
+        const correctAnswer = block.getAttribute('data-correct');
+        const selected = document.querySelector(`input[name="q_${i}"]:checked`);
+        const labels = block.querySelectorAll('.option-label');
+        
+        // Remove hovering/active CSS profiles
+        labels.forEach(lbl => lbl.className = 'option-label');
+        
+        if (selected.value === correctAnswer) {
+            correctThisPage++;
+            totalScore++;
+            selected.parentElement.classList.add('correct-ans');
+        } else {
+            selected.parentElement.classList.add('incorrect-ans');
+            labels.forEach(lbl => {
+                if (lbl.querySelector('input').value === correctAnswer) {
+                    lbl.classList.add('correct-ans');
+                }
+            });
+        }
+    }
+    
+    pageStatus[currentPage] = true;
+    
+    if (currentPage === totalPages) {
+        displayFinalMatrix();
+    } else {
+        updateUIControls();
+    }
+}
+
+function displayFinalMatrix() {
+    document.getElementById('dynamicPageContent').style.display = "none";
+    document.getElementById('footerControls').style.display = "none";
+    document.getElementById('pageIndicator').style.display = "none";
+    document.getElementById('pageResultBox').style.display = "none";
+    document.getElementById('mainTitle').innerText = "System Audit Complete";
+    
+    const finalScreen = document.getElementById('final-screen');
+    document.getElementById('finalScoreText').innerHTML = `Aggregate Score Rating:<br><span style='font-size:32px; color:#059669; font-weight:bold;'>${totalScore} / 100 Points</span><br>Overall Accuracy: ${Math.round((totalScore/100)*100)}%`;
+    finalScreen.style.display = "block";
+    document.getElementById('progressBar').style.width = "100%";
+}
+
+function resetQuiz() {
+    currentPage = 1;
+    totalScore = 0;
+    document.getElementById('quizForm').reset();
+    
+    for (let i = 1; i <= totalPages; i++) { pageStatus[i] = false; }
+    
+    document.getElementById('dynamicPageContent').style.display = "block";
+    document.getElementById('footerControls').style.display = "flex";
+    document.getElementById('pageIndicator').style.display = "block";
+    document.getElementById('mainTitle').innerText = "Tense Masterclass (100 Questions)";
+    document.getElementById('final-screen').style.display = "none";
+    
+    renderPage();
+}
+
+// Initial application instantiation
+window.onload = renderPage;
+</script>
+
+</body>
+</html>
