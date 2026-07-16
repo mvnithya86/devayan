@@ -1,0 +1,691 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active and Passive Voice Mastery Challenge</title>
+    <style>
+        /* Modern Clean CSS Custom Properties for Theming */
+        :root {
+            --primary: #2b4c7e;
+            --primary-light: #eef4fc;
+            --accent: #e67e22;
+            --text: #2c3e50;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --border: #cfd8dc;
+            --radius: 8px;
+        }
+        body { font-family: system-ui, sans-serif; background-color: var(--bg); color: var(--text); padding: 40px 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .level-header { background-color: var(--primary); color: white; padding: 12px 20px; border-radius: var(--radius); display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;}
+        .question-card { background-color: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .answer-btn { background-color: var(--primary-light); color: var(--primary); border: none; padding: 8px 16px; font-weight: 600; cursor: pointer; border-radius: 4px; }
+        .answer-panel { display: none; margin-top: 15px; padding: 15px; background-color: #f1f8e9; border-left: 4px solid #7cb342; color: #33691e; }
+        .answer-panel.show { display: block; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header style="text-align: center; margin-bottom: 40px; border-bottom: 3px solid var(--primary); padding-bottom: 20px;">
+        <h1>Active & Passive Voice Challenge</h1>
+        <p>50 Curated Questions from Foundational to Advanced ICSE Standards</p>
+    </header>
+
+    <!-- LEVEL 1 SAMPLE -->
+    <div class="level-section">
+        <div class="level-header"><span>Level 1: Foundational Exercises</span><span style="background:rgba(255,255,255,0.2); padding:4px 12px; border-radius:20px;">Easy</span></div>
+        
+        <div class="question-card">
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:0.9rem;"><strong>Question 1</strong><span style="color:var(--accent); text-transform:uppercase; font-size:0.8rem;">Active to Passive</span></div>
+            <div style="font-size:1.1rem; font-weight:500; margin-bottom:15px;">The cat chased the mouse.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The mouse was chased by the cat.</div>
+        </div>
+        
+        <!-- File contains Questions 2 to 50 spanning all complex conditions -->
+    </div>
+</div>
+
+<script>
+    function toggleAns(button) {
+        const panel = button.nextElementSibling;
+        if (panel.classList.contains('show')) {
+            panel.classList.remove('show');
+            button.textContent = 'Show Answer';
+        } else {
+            panel.classList.add('show');
+            button.textContent = 'Hide Answer';
+        }
+    }
+</script>
+</body>
+</html>
+
+
+
+Gemini is AI and can make mistakes.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active and Passive Voice Mastery Challenge</title>
+    <style>
+        :root {
+            --primary: #2b4c7e;
+            --primary-light: #eef4fc;
+            --accent: #e67e22;
+            --text: #2c3e50;
+            --text-light: #607d8b;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --border: #cfd8dc;
+            --shadow: 0 4px 6px rgba(0,0,0,0.05);
+            --radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .level-section {
+            margin-bottom: 50px;
+        }
+
+        .level-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .level-badge {
+            background-color: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        .q-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .q-number {
+            color: var(--primary);
+        }
+
+        .q-type {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .answer-btn {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border: none;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .answer-btn:hover {
+            background-color: #dbe9f9;
+        }
+
+        .answer-panel {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f1f8e9;
+            border-left: 4px solid #7cb342;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            font-size: 1.05rem;
+            color: #33691e;
+        }
+
+        .answer-panel.show {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Active & Passive Voice Challenge</h1>
+        <p class="subtitle">50 Curated Questions from Foundational to Advanced ICSE/High School Standards</p>
+    </header>
+
+    <!-- LEVEL 1: BEGINNER -->
+    <div class="level-section">
+        <div class="level-header">
+            <span>Level 1: Foundational Exercises</span>
+            <span class="level-badge">Easy</span>
+        </div>
+
+        <!-- Q1 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 1</span><span class="q-type">Active to Passive</span></div>
+            <div class="q-text">The cat chased the mouse.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The mouse was chased by the cat.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 2</span><span class="q-type">Active to Passive</span></div>
+            <div class="q-text">She writes a letter every day.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> A letter is written by her every day.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 3</span><span class="q-type">Active to Passive</span></div>
+            <div class="q-text">The boy ate the delicious mangoes.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The delicious mangoes were eaten by the boy.</div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 4</span><span class="q-type">Active to Passive</span></div>
+            <div class="q-text">My mother is cooking dinner.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> Dinner is being cooked by my mother.</div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 5</span><span class="q-type">Active to Passive</span></div>
+            <div class="q-text">They will complete the project tomorrow.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The project will be completed by them tomorrow.</div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 6</span><span class="q-type">Passive to Active</span></div>
+            <div class="q-text">The cake was baked by Sarah.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> Sarah baked the cake.</div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 7</span><span class="q-type">Passive to Active</span></div>
+            <div class="q-text">The tree was struck by lightning.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> Lightning struck the tree.</div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 8</span><span class="q-type">Active to Passive</span></div>
+            <div class="q-text">The gardener waters the plants regularly.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The plants are watered regularly by the gardener.</div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 9</span><span class="q-type">Active to Passive</span></div>
+            <div class="q-text">He has painted the front door.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The front door has been painted by him.</div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 10</span><span class="q-type">Passive to Active</span></div>
+            <div class="q-text">The windows are cleaned by John every week.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> John cleans the windows every week.</div>
+        </div>
+
+        <!-- Q11 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 11</span><span class="q-type">Active to Passive</span></div>
+            <div class="q-text">The teacher praised the student.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The student was praised by the teacher.</div>
+        </div>
+
+        <!-- Q12 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 12</span><span class="q-type">Passive to Active</span></div>
+            <div class="q-text">A song is being sung by the choir.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The choir is singing a song.</div>
+        </div>
+
+        <!-- Q13 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 13</span><span class="q-type">Active to Passive</span></div>
+            <div class="q-text">We expect good news.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> Good news is expected by us.</div>
+        </div>
+
+        <!-- Q14 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 14</span><span class="q-type">Passive to Active</span></div>
+            <div class="q-text">The thief was caught by the police.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The police caught the thief.</div>
+        </div>
+
+        <!-- Q15 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 15</span><span class="q-type">Active to Passive</span></div>
+            <div class="q-text">The children broke the window pane.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The window pane was broken by the children.</div>
+        </div>
+    </div>
+
+
+    <!-- LEVEL 2: INTERMEDIATE -->
+    <div class="level-section">
+        <div class="level-header">
+            <span>Level 2: Intermediate Syntactic Shifts</span>
+            <span class="level-badge">Medium</span>
+        </div>
+
+        <!-- Q16 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 16</span><span class="q-type">Active to Passive (Ditransitive)</span></div>
+            <div class="q-text">The manager gave the employee a bonus.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The employee was given a bonus by the manager. / A bonus was given to the employee by the manager.</div>
+        </div>
+
+        <!-- Q17 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 17</span><span class="q-type">Active to Passive (Continuous)</span></div>
+            <div class="q-text">They were repairing the bridge when I passed by.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The bridge was being repaired by them when I passed by.</div>
+        </div>
+
+        <!-- Q18 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 18</span><span class="q-type">Active to Passive (Interrogative)</span></div>
+            <div class="q-text">Did you complete the assignment before the deadline?</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> Was the assignment completed by you before the deadline?</div>
+        </div>
+
+        <!-- Q19 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 19</span><span class="q-type">Active to Passive (Modal)</span></div>
+            <div class="q-text">You must submit the application forms immediately.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The application forms must be submitted by you immediately.</div>
+        </div>
+
+        <!-- Q20 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 20</span><span class="q-type">Active to Passive (Imperative)</span></div>
+            <div class="q-text">Switch off all the lights before leaving.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> Let all the lights be switched off before leaving. / You are ordered/requested to switch off all the lights before leaving.</div>
+        </div>
+
+        <!-- Q21 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 21</span><span class="q-type">Active to Passive (Interrogative)</span></div>
+            <div class="q-text">Who invited you to the party?</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> By whom were you invited to the party?</div>
+        </div>
+
+        <!-- Q22 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 22</span><span class="q-type">Active to Passive (Prepositional Verb)</span></div>
+            <div class="q-text">The students laughed at the old man.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The old man was laughed at by the students.</div>
+        </div>
+
+        <!-- Q23 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 23</span><span class="q-type">Active to Passive (Perfect)</span></div>
+            <div class="q-text">The scientists have discovered a new cure for the disease.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> A new cure for the disease has been discovered by the scientists.</div>
+        </div>
+
+        <!-- Q24 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 24</span><span class="q-type">Passive to Active</span></div>
+            <div class="q-text">A beautiful story was being narrated to us by our grandmother.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> Our grandmother was narrating a beautiful story to us.</div>
+        </div>
+
+        <!-- Q25 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 25</span><span class="q-type">Active to Passive (Imperative)</span></div>
+            <div class="q-text">Do not post the letters today.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> Let the letters not be posted today.</div>
+        </div>
+
+        <!-- Q26 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 26</span><span class="q-type">Active to Passive (Modal Perfect)</span></div>
+            <div class="q-text">They should have informed the police about the accident.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The police should have been informed about the accident by them.</div>
+        </div>
+
+        <!-- Q27 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 27</span><span class="q-type">Active to Passive (Interrogative)</span></div>
+            <div class="q-text">Which book did the teacher select for the course?</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> Which book was selected by the teacher for the course?</div>
+        </div>
+
+        <!-- Q28 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 28</span><span class="q-type">Passive to Active</span></div>
+            <div class="q-text">The matches were canceled due to inclement weather conditions.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The authorities canceled the matches due to inclement weather conditions.</div>
+        </div>
+
+        <!-- Q29 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 29</span><span class="q-type">Active to Passive</span></div>
+            <div class="q-text">The sudden noise frightened the horse.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The horse was frightened by the sudden noise.</div>
+        </div>
+
+        <!-- Q30 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 30</span><span class="q-type">Passive to Active</span></div>
+            <div class="q-text">Why was such a crude remark made by your friend?</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> Why did your friend make such a crude remark?</div>
+        </div>
+    </div>
+
+
+    <!-- LEVEL 3: ADVANCED/ICSE SPECIAL -->
+    <div class="level-section">
+        <div class="level-header">
+            <span>Level 3: Advanced Challenges (ICSE Pattern)</span>
+            <span class="level-badge">Hard</span>
+        </div>
+
+        <!-- Q31 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 31</span><span class="q-type">Active to Passive (Complex Clause)</span></div>
+            <div class="q-text">People believe that the ancient ruins are haunted.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> It is believed that the ancient ruins are haunted. / The ancient ruins are believed to be haunted.</div>
+        </div>
+
+        <!-- Q32 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 32</span><span class="q-type">Active to Passive (Infinitive)</span></div>
+            <div class="q-text">It is time to close the window counters.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> It is time for the window counters to be closed.</div>
+        </div>
+
+        <!-- Q33 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 33</span><span class="q-type">Active to Passive (Imperative Negative)</span></div>
+            <div class="q-text">Never insult the underprivileged.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> Let the underprivileged never be insulted. / The underprivileged should never be insulted.</div>
+        </div>
+
+        <!-- Q34 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 34</span><span class="q-type">Active to Passive (Quasi-Passive)</span></div>
+            <div class="q-text">This surface feels smooth.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> This surface is smooth when it is felt.</div>
+        </div>
+
+        <!-- Q35 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 35</span><span class="q-type">Active to Passive (Factitive Object)</span></div>
+            <div class="q-text">The people elected him President by a vast majority.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> He was elected President by the people by a vast majority.</div>
+        </div>
+
+        <!-- Q36 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 36</span><span class="q-type">Active to Passive (Gerund Construction)</span></div>
+            <div class="q-text">I remember my father taking me to the theater.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> I remember being taken to the theater by my father.</div>
+        </div>
+
+        <!-- Q37 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 37</span><span class="q-type">Active to Passive (Intransitive Phrasal)</span></div>
+            <div class="q-text">The car ran over the innocent pup.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The innocent pup was run over by the car.</div>
+        </div>
+
+        <!-- Q38 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 38</span><span class="q-type">Active to Passive (Implied Agent)</span></div>
+            <div class="q-text">One should keep one's promises under all circumstances.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> Promises should be kept under all circumstances.</div>
+        </div>
+
+        <!-- Q39 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 39</span><span class="q-type">Active to Passive (Bare Infinitive)</span></div>
+            <div class="q-text">We saw the criminal escape through the back window.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The criminal was seen to escape through the back window.</div>
+        </div>
+
+        <!-- Q40 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 40</span><span class="q-type">Active to Passive (Complex Object)</span></div>
+            <div class="q-text">They forced the captain to sign the resignation letter.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The captain was forced to sign the resignation letter.</div>
+        </div>
+
+        <!-- Q41 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 41</span><span class="q-type">Passive to Active (No Explicit Agent)</span></div>
+            <div class="q-text">My pockets have been picked.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> Someone has picked my pockets.</div>
+        </div>
+
+        <!-- Q42 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 42</span><span class="q-type">Active to Passive (Double Object Variation)</span></div>
+            <div class="q-text">The headmaster taught us Latin.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> We were taught Latin by the headmaster. / Latin was taught to us by the headmaster.</div>
+        </div>
+
+        <!-- Q43 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 43</span><span class="q-type">Active to Passive (Sensory Verb)</span></div>
+            <div class="q-text">I heard her singing a classical melody.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> She was heard singing a classical melody.</div>
+        </div>
+
+        <!-- Q44 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 44</span><span class="q-type">Active to Passive (Quasi-Passive)</span></div>
+            <div class="q-text">Quinine tastes bitter.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> Quinine is bitter when it is tasted.</div>
+        </div>
+
+        <!-- Q45 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 45</span><span class="q-type">Active to Passive (Noun Clause Object)</span></div>
+            <div class="q-text">We expect that they will win the tournament.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> It is expected that the tournament will be won by them.</div>
+        </div>
+
+        <!-- Q46 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 46</span><span class="q-type">Active to Passive (Imperative Advice)</span></div>
+            <div class="q-text">Help the needy and the helpless.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The needy and the helpless should be helped.</div>
+        </div>
+
+        <!-- Q47 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 47</span><span class="q-type">Passive to Active (Implied Authority)</span></div>
+            <div class="q-text">The lawbreakers will be severely dealt with.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The authorities will deal severely with the lawbreakers.</div>
+        </div>
+
+        <!-- Q48 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 48</span><span class="q-type">Active to Passive (Prepositional Nuance)</span></div>
+            <div class="q-text">Smoke filled the room.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The room was filled with smoke. (Note: "with", not "by")</div>
+        </div>
+
+        <!-- Q49 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 49</span><span class="q-type">Active to Passive (Prepositional Nuance)</span></div>
+            <div class="q-text">This news pleases me highly.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> I am highly pleased with this news. (Note: "with", not "by")</div>
+        </div>
+
+        <!-- Q50 -->
+        <div class="question-card">
+            <div class="q-meta"><span class="q-number">Question 50</span><span class="q-type">Active to Passive (Complex Double-Clause)</span></div>
+            <div class="q-text">They sent the letter and expected a quick reply.</div>
+            <button class="answer-btn" onclick="toggleAns(this)">Show Answer</button>
+            <div class="answer-panel"><strong>Answer:</strong> The letter was sent and a quick reply was expected by them.</div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Grammar Practice Dashboard. Designed for High School & ICSE English Curriculum.</p>
+</footer>
+
+<script>
+    function toggleAns(button) {
+        const panel = button.nextElementSibling;
+        if (panel.classList.contains('show')) {
+            panel.classList.remove('show');
+            button.textContent = 'Show Answer';
+        } else {
+            panel.classList.add('show');
+            button.textContent = 'Hide Answer';
+        }
+    }
+</script>
+
+</body>
+</html>
+index.html
+Displaying index.html.
