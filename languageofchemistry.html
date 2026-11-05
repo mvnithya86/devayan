@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7th Grade Chemistry: Language of Chemistry & Chemical Reactions</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    @media print {
+      .no-print { display: none !important; }
+      .print-only { display: block !important; }
+      body { background: white; color: black; }
+      .page-break { page-break-after: always; }
+    }
+    .print-only { display: none; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- TOP HEADER / NAVBAR (No-Print) -->
+  <header class="no-print bg-indigo-700 text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="p-2 bg-indigo-600 rounded-lg shadow-inner">
+          <svg class="w-6 h-6 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight">7th Grade Chemistry Practice Hub</h1>
+          <p class="text-xs text-indigo-200">Theme 5: Language of Chemistry & Chemical Reactions</p>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex items-center space-x-2">
+        <button id="btn-quiz-view" onclick="resetQuiz()" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-white text-indigo-700 hover:bg-indigo-50 transition shadow-sm">
+          Reset Progress
+        </button>
+        <button id="btn-print-view" onclick="prepareAndPrint()" class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-indigo-800 text-white hover:bg-indigo-900 transition flex items-center gap-1 border border-indigo-600">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+          </svg>
+          Print Worksheet
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- INTERACTIVE QUIZ CONTAINER -->
+  <main id="interactive-quiz-container" class="no-print max-w-5xl mx-auto px-4 py-6 flex-grow w-full">
+    
+    <!-- CONTROLS & CATEGORY FILTER PANEL -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 mb-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        
+        <!-- Category Dropdown -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+          <label for="category-select" class="text-sm font-semibold text-slate-700 whitespace-nowrap">Filter Topic:</label>
+          <select id="category-select" onchange="filterCategory(this.value)" class="bg-slate-50 border border-slate-300 text-slate-800 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 p-2 w-full sm:w-auto font-medium">
+            <option value="all">All Topics (50 MCQs)</option>
+            <option value="Basic Concepts">1. Basic Concepts & Reactants/Products (Q1-15)</option>
+            <option value="Reaction Characteristics">2. Reaction Characteristics & Activities (Q16-35)</option>
+            <option value="Energy & Catalysts">3. Energy Changes & Catalysts (Q36-43)</option>
+            <option value="Chemical Equations">4. Chemical Equations & Balancing (Q44-50)</option>
+          </select>
+        </div>
+
+        <!-- Mode Toggles -->
+        <div class="flex flex-wrap items-center gap-4 text-sm font-medium text-slate-600">
+          <label class="inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="auto-explain-toggle" checked class="sr-only peer" onchange="toggleAutoExplain(this.checked)">
+            <div class="w-9 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600 relative"></div>
+            <span class="ml-2 text-xs sm:text-sm">Auto-show Explanations</span>
+          </label>
+        </div>
+
+      </div>
+
+      <!-- Progress & Score Bar -->
+      <div class="mt-4 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-sm">
+        <div class="flex items-center space-x-4">
+          <span class="font-semibold text-slate-700">Answered: <span id="stat-answered" class="text-indigo-600">0</span> / <span id="stat-total">50</span></span>
+          <span class="font-semibold text-emerald-600">Correct: <span id="stat-correct">0</span></span>
+          <span class="font-semibold text-rose-500">Incorrect: <span id="stat-wrong">0</span></span>
+        </div>
+        <div class="w-full sm:w-48 bg-slate-200 rounded-full h-2.5 overflow-hidden">
+          <div id="progress-bar-fill" class="bg-indigo-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUESTIONS DISPLAY CONTAINER -->
+    <div id="questions-wrapper" class="space-y-6">
+      <!-- Questions will be rendered dynamically here via JS -->
+    </div>
+
+    <!-- SCORE SUMMARY CARD (Hidden initially) -->
+    <div id="summary-card" class="hidden mt-8 bg-white rounded-xl shadow-md border border-indigo-100 p-6 text-center">
+      <h2 class="text-2xl font-bold text-slate-800 mb-2">🎉 Assessment Complete!</h2>
+      <p class="text-slate-600 mb-4">Here is how you performed in this chemistry review session:</p>
+      
+      <div class="inline-flex items-center justify-center p-6 bg-indigo-50 rounded-full mb-4">
+        <span id="final-score" class="text-4xl font-extrabold text-indigo-700">0 / 50</span>
+      </div>
+
+      <p id="final-feedback-msg" class="text-sm font-semibold text-slate-700 mb-6"></p>
+
+      <div class="flex justify-center gap-4">
+        <button onclick="resetQuiz()" class="px-5 py-2.5 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition shadow">
+          Retake Quiz
+        </button>
+        <button onclick="prepareAndPrint()" class="px-5 py-2.5 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition shadow">
+          Print Full Report
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- PRINT-ONLY WORKSHEET TEMPLATE -->
+  <div id="print-worksheet" class="print-only p-8 max-w-4xl mx-auto">
+    <div class="border-b-2 border-slate-800 pb-4 mb-6 flex justify-between items-end">
+      <div>
+        <h1 class="text-2xl font-bold uppercase tracking-wide">Science Assessment: Chemistry</h1>
+        <p class="text-sm">Topic: Language of Chemistry & Chemical Reactions (7th Grade)</p>
+      </div>
+      <div class="text-right text-xs">
+        <p>Name: ___________________________</p>
+        <p class="mt-1">Date: ___________________________</p>
+        <p class="mt-1">Score: ________ / 50</p>
+      </div>
+    </div>
+
+    <div id="print-questions-list" class="space-y-4 text-sm">
+      <!-- Printable questions rendered here -->
+    </div>
+
+    <!-- PRINT ANSWER KEY SECTION -->
+    <div class="page-break"></div>
+    <div class="mt-8 pt-6 border-t-2 border-slate-800">
+      <h2 class="text-xl font-bold uppercase mb-4 text-center">Teacher Answer Key & Explanations</h2>
+      <div id="print-answer-key" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <!-- Printable answer keys rendered here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="no-print bg-white border-t border-slate-200 mt-auto py-4 text-center text-xs text-slate-500">
+    7th Grade Concise Chemistry • Class Quiz Suite & GitHub-Ready Printable Worksheet
+  </footer>
+
+  <script>
+    // DATA: 50 MULTIPLE CHOICE QUESTIONS BASED ON TEXTBOOK PAGES
+    const questions = [
+      // CATEGORY 1: Basic Concepts & Reactants/Products (Q1 - Q15)
+      {
+        id: 1,
+        category: "Basic Concepts",
+        text: "What is defined as any chemical change in matter which involves its transformation into one or more new substances?",
+        options: ["Physical Reaction", "Chemical Reaction", "Evaporation", "Sublimation"],
+        answer: 1,
+        explanation: "A chemical reaction is any chemical change in matter that involves the transformation of reactants into one or more new substances."
+      },
+      {
+        id: 2,
+        category: "Basic Concepts",
+        text: "Substances that undergo a chemical change during a reaction are called:",
+        options: ["Products", "Catalysts", "Reactants", "Solvents"],
+        answer: 2,
+        explanation: "The starting substances that undergo chemical transformation are called reactants."
+      },
+      {
+        id: 3,
+        category: "Basic Concepts",
+        text: "The new substances formed as a result of a chemical reaction are known as:",
+        options: ["Reactants", "Products", "Elements", "Precipitates only"],
+        answer: 1,
+        explanation: "The new chemical substances produced during a reaction are termed products."
+      },
+      {
+        id: 4,
+        category: "Basic Concepts",
+        text: "What happens to the atoms of reacting molecules during a chemical reaction?",
+        options: [
+          "They are destroyed completely",
+          "They rearrange themselves to form new products",
+          "They turn into entirely new elements",
+          "They remain completely unaffected"
+        ],
+        answer: 1,
+        explanation: "During a chemical reaction, existing chemical bonds break and atoms rearrange to form new substances."
+      },
+      {
+        id: 5,
+        category: "Basic Concepts",
+        text: "Which statement is TRUE regarding atoms in a standard chemical reaction?",
+        options: [
+          "New atoms are created from energy",
+          "Atoms are neither destroyed nor created",
+          "Reactant atoms double in mass",
+          "Atoms melt into a continuous fluid"
+        ],
+        answer: 1,
+        explanation: "Atoms are neither destroyed nor are new atoms formed during a chemical reaction; they only rearrange."
+      },
+      {
+        id: 6,
+        category: "Basic Concepts",
+        text: "Both reactants and products involved in a chemical reaction are classified as:",
+        options: ["Impure mixtures", "Pure substances", "Gaseous solutions", "Metals"],
+        answer: 1,
+        explanation: "Both reactants and products are pure substances (either elements or compounds)."
+      },
+      {
+        id: 7,
+        category: "Basic Concepts",
+        text: "When a chemical reaction is written using the full names of the reactants and products, it is called a:",
+        options: ["Symbolic Equation", "Skeletal Equation", "Word Equation", "Formula Equation"],
+        answer: 2,
+        explanation: "Expressing a reaction using the full names of reactants and products (e.g., Hydrogen + Oxygen -> Water) is a word equation."
+      },
+      {
+        id: 8,
+        category: "Basic Concepts",
+        text: "When candle wax burns in air, what are the products formed along with heat and light energy?",
+        options: [
+          "Carbon monoxide and Nitrogen",
+          "Carbon dioxide and Water vapour",
+          "Oxygen and Hydrogen",
+          "Methane and Ash"
+        ],
+        answer: 1,
+        explanation: "Candle wax burns in oxygen to yield carbon dioxide and water vapour with heat and light."
+      },
+      {
+        id: 9,
+        category: "Basic Concepts",
+        text: "In the reaction: Hydrogen + Oxygen -> Water, which substance is the product?",
+        options: ["Hydrogen", "Oxygen", "Water", "Both Hydrogen & Oxygen"],
+        answer: 2,
+        explanation: "Water is the new compound formed on the right-hand side of the reaction, making it the product."
+      },
+      {
+        id: 10,
+        category: "Basic Concepts",
+        text: "What new compound is formed when sodium oxide reacts chemically with water?",
+        options: ["Sodium chloride", "Sodium hydroxide", "Sodium carbonate", "Sodium peroxide"],
+        answer: 1,
+        explanation: "Sodium oxide + Water -> Sodium hydroxide."
+      },
+      {
+        id: 11,
+        category: "Basic Concepts",
+        text: "Upon heating, mercuric oxide (a compound) decomposes into which two elements?",
+        options: [
+          "Mercury and Hydrogen",
+          "Mercury and Oxygen",
+          "Silver and Oxygen",
+          "Copper and Nitrogen"
+        ],
+        answer: 1,
+        explanation: "Mercuric oxide + Heat -> Mercury + Oxygen."
+      },
+      {
+        id: 12,
+        category: "Basic Concepts",
+        text: "Which of the following represents a chemical reaction involving the combination of two elements?",
+        options: [
+          "Hydrogen + Oxygen -> Water",
+          "Sodium oxide + Water -> Sodium hydroxide",
+          "Mercuric oxide -> Mercury + Oxygen",
+          "Sugar -> Charcoal + Water vapour"
+        ],
+        answer: 0,
+        explanation: "Hydrogen and oxygen are both elements combining to form the compound water."
+      },
+      {
+        id: 13,
+        category: "Basic Concepts",
+        text: "Potassium chlorate decomposes on heating to yield potassium chloride and which gas?",
+        options: ["Nitrogen", "Carbon dioxide", "Oxygen", "Chlorine"],
+        answer: 2,
+        explanation: "Potassium chlorate + Heat -> Potassium chloride + Oxygen."
+      },
+      {
+        id: 14,
+        category: "Basic Concepts",
+        text: "Why is shorthand notation (symbols and formulae) preferred in chemistry?",
+        options: [
+          "It makes writing equations faster and more convenient",
+          "It eliminates the need for balancing",
+          "It changes the properties of reactants",
+          "It makes chemical reactions occur without heat"
+        ],
+        answer: 0,
+        explanation: "Using chemical symbols and formulae saves time, space, and makes representing chemical changes simple and clear."
+      },
+      {
+        id: 15,
+        category: "Basic Concepts",
+        text: "The properties of the products formed in a chemical reaction are:",
+        options: [
+          "Identical to the reactants",
+          "Completely different from the reactants",
+          "An exact average of the reactants",
+          "Temporary and easily reversible by hand"
+        ],
+        answer: 1,
+        explanation: "A chemical change yields new substances with properties completely different from the original reactants."
+      },
+
+      // CATEGORY 2: Reaction Characteristics & Activities (Q16 - Q35)
+      {
+        id: 16,
+        category: "Reaction Characteristics",
+        text: "Rapid bubble formation due to the evolution of gas in a liquid medium is known as:",
+        options: ["Precipitation", "Effervescence", "Charring", "Condensation"],
+        answer: 1,
+        explanation: "Effervescence is the rapid formation of gas bubbles in a liquid during a chemical reaction."
+      },
+      {
+        id: 17,
+        category: "Reaction Characteristics",
+        text: "When sodium carbonate reacts with dilute hydrochloric acid (Activity 1), what gas is evolved with brisk effervescence?",
+        options: ["Hydrogen", "Oxygen", "Carbon dioxide", "Ammonia"],
+        answer: 2,
+        explanation: "Sodium carbonate + Dilute Hydrochloric Acid yields Sodium Chloride + Water + Carbon Dioxide gas."
+      },
+      {
+        id: 18,
+        category: "Reaction Characteristics",
+        text: "When white sugar is heated in a porcelain dish (Activity 2), what black residue remains?",
+        options: ["Copper oxide", "Sugar charcoal", "Iron sulphide", "Lead oxide"],
+        answer: 1,
+        explanation: "Heating sugar causes it to lose water vapour and leave behind a black mass of sugar charcoal."
+      },
+      {
+        id: 19,
+        category: "Reaction Characteristics",
+        text: "Heating green copper carbonate (Activity 3) produces a solid of what colour?",
+        options: ["White", "Yellow", "Black", "Bright Blue"],
+        answer: 2,
+        explanation: "Green copper carbonate decomposes upon heating to form black copper oxide solid and carbon dioxide gas."
+      },
+      {
+        id: 20,
+        category: "Reaction Characteristics",
+        text: "When an iron nail is placed in a blue copper sulphate solution, the solution turns light green due to the formation of:",
+        options: ["Iron oxide", "Iron sulphate", "Copper carbonate", "Iron chloride"],
+        answer: 1,
+        explanation: "Iron + Copper sulphate (blue) -> Iron sulphate (light green) + Copper (reddish-brown)."
+      },
+      {
+        id: 21,
+        category: "Reaction Characteristics",
+        text: "What reddish-brown substance deposits on the iron nail during its reaction with copper sulphate?",
+        options: ["Rust", "Copper metal", "Sulphur powder", "Carbon"],
+        answer: 1,
+        explanation: "Displaced metallic copper deposits as a reddish-brown solid."
+      },
+      {
+        id: 22,
+        category: "Reaction Characteristics",
+        text: "Baking soda chemically reacts with vinegar (acetic acid) to release which gas?",
+        options: ["Carbon dioxide", "Hydrogen", "Nitrogen dioxide", "Chlorine"],
+        answer: 0,
+        explanation: "Baking soda (Sodium bicarbonate) + Acetic acid -> Sodium acetate + Water + Carbon dioxide gas."
+      },
+      {
+        id: 23,
+        category: "Reaction Characteristics",
+        text: "What is a 'precipitate' in a chemical reaction?",
+        options: [
+          "A dissolved gas in water",
+          "An insoluble solid formed when two solutions are mixed",
+          "A liquid catalyst",
+          "A clear solution that conducts electricity"
+        ],
+        answer: 1,
+        explanation: "A precipitate is an insoluble solid that separates out from a liquid solution during a chemical reaction."
+      },
+      {
+        id: 24,
+        category: "Reaction Characteristics",
+        text: "Mixing barium chloride solution with sodium sulphate solution produces a precipitate of what colour?",
+        options: ["Yellow", "White", "Blue", "Black"],
+        answer: 1,
+        explanation: "Barium chloride + Sodium sulphate -> Barium sulphate (white precipitate) + Sodium chloride."
+      },
+      {
+        id: 25,
+        category: "Reaction Characteristics",
+        text: "Adding potassium iodide solution to lead acetate solution produces a precipitate of what colour?",
+        options: ["White", "Bright Yellow", "Red", "Dark Green"],
+        answer: 1,
+        explanation: "Potassium iodide + Lead acetate -> Lead iodide (yellow precipitate) + Potassium acetate."
+      },
+      {
+        id: 26,
+        category: "Reaction Characteristics",
+        text: "Which gas with a characteristic 'rotten egg smell' is evolved when iron sulphide reacts with dilute hydrochloric acid?",
+        options: ["Ammonia", "Hydrogen sulphide", "Sulphur dioxide", "Carbon monoxide"],
+        answer: 1,
+        explanation: "Iron sulphide + Dilute Hydrochloric acid -> Iron chloride + Hydrogen sulphide gas (rotten egg odor)."
+      },
+      {
+        id: 27,
+        category: "Reaction Characteristics",
+        text: "When solid ammonium chloride is heated with sodium hydroxide solution, what gas is evolved?",
+        options: ["Pungent ammonia gas", "Odorless oxygen", "Sweet-smelling methane", "Chlorine gas"],
+        answer: 0,
+        explanation: "Ammonium chloride + Sodium hydroxide -> Sodium chloride + Water + Ammonia gas (pungent smell)."
+      },
+      {
+        id: 28,
+        category: "Reaction Characteristics",
+        text: "Dense white fumes are observed when a glass rod dipped in ammonia solution is brought near the mouth of a test tube containing concentrated HCl. These fumes are:",
+        options: ["Ammonium chloride", "Sodium chloride", "Hydrogen gas", "Ammonia liquid"],
+        answer: 0,
+        explanation: "Ammonia gas + Hydrochloric acid gas -> Solid Ammonium chloride fumes."
+      },
+      {
+        id: 29,
+        category: "Reaction Characteristics",
+        text: "For a chemical reaction to occur, the primary essential condition is that reactants must:",
+        options: [
+          "Be in gaseous state only",
+          "Come into close contact with each other",
+          "Be frozen solid",
+          "Be exposed to direct sunlight"
+        ],
+        answer: 1,
+        explanation: "Reactants must come into close contact (by mixing, dissolving, or collision) for a chemical reaction to begin."
+      },
+      {
+        id: 30,
+        category: "Reaction Characteristics",
+        text: "Why is sodium metal stored under kerosene oil in laboratories?",
+        options: [
+          "To prevent it from evaporating",
+          "To keep it cool",
+          "To prevent it from coming into contact with air and moisture",
+          "To make it change colour"
+        ],
+        answer: 2,
+        explanation: "Sodium is extremely reactive and reacts violently with air/moisture, so it is kept submerged in kerosene oil."
+      },
+      {
+        id: 31,
+        category: "Reaction Characteristics",
+        text: "Do solid sodium chloride and solid lead nitrate react when kept together in dry powder form without moisture?",
+        options: [
+          "Yes, they form a yellow powder instantly",
+          "No reaction takes place until they are in solution form",
+          "Yes, they explode",
+          "Yes, they release oxygen gas"
+        ],
+        answer: 1,
+        explanation: "As shown in Activity 8, dry solids do not react without close contact in solution form."
+      },
+      {
+        id: 32,
+        category: "Reaction Characteristics",
+        text: "When hydrogen gas burns in oxygen gas to form liquid water, what change of state occurs?",
+        options: [
+          "Solid to liquid",
+          "Gaseous reactants form a liquid product",
+          "Liquid to gas",
+          "No change of state"
+        ],
+        answer: 1,
+        explanation: "Gaseous hydrogen and oxygen react to produce liquid water."
+      },
+      {
+        id: 33,
+        category: "Reaction Characteristics",
+        text: "The effervescence produced when an 'Eno' tablet is added to water is due to the reaction between:",
+        options: [
+          "Sodium bicarbonate and citric acid",
+          "Sodium chloride and water",
+          "Calcium oxide and sugar",
+          "Iron and vinegar"
+        ],
+        answer: 0,
+        explanation: "Eno contains sodium bicarbonate and citric acid, which react when dissolved in water."
+      },
+      {
+        id: 34,
+        category: "Reaction Characteristics",
+        text: "What observation indicates a chemical reaction when dilute HCl is added to sodium hydroxide solution (Activity 7)?",
+        options: [
+          "Bright yellow precipitate",
+          "The test tube becomes warm (heat release)",
+          "Evolution of dense black smoke",
+          "Formation of green crystals"
+        ],
+        answer: 1,
+        explanation: "Neutralization between acid and base releases heat energy, warming the container."
+      },
+      {
+        id: 35,
+        category: "Reaction Characteristics",
+        text: "Which of the following is NOT a typical characteristic sign of a chemical reaction?",
+        options: [
+          "Change of color",
+          "Evolution of a gas",
+          "Total mass increase of universe",
+          "Formation of a precipitate"
+        ],
+        answer: 2,
+        explanation: "Mass is always conserved; total mass never increases or decreases in a chemical reaction."
+      },
+
+      // CATEGORY 3: Energy Changes & Catalysts (Q36 - Q43)
+      {
+        id: 36,
+        category: "Energy & Catalysts",
+        text: "Chemical reactions that absorb heat energy from their surroundings are called:",
+        options: ["Exothermic reactions", "Endothermic reactions", "Catalytic reactions", "Neutralization reactions"],
+        answer: 1,
+        explanation: "Endothermic reactions absorb thermal energy from their surroundings."
+      },
+      {
+        id: 37,
+        category: "Energy & Catalysts",
+        text: "Chemical reactions in which heat energy is released into the surroundings are called:",
+        options: ["Endothermic reactions", "Exothermic reactions", "Reversible reactions", "Isothermal reactions"],
+        answer: 1,
+        explanation: "Exothermic reactions evolve/release heat energy."
+      },
+      {
+        id: 38,
+        category: "Energy & Catalysts",
+        text: "When water is added to quick lime (calcium oxide), slaked lime is formed with the release of large heat. This reaction is:",
+        options: ["Endothermic", "Exothermic", "Photochemical", "Electrolytic"],
+        answer: 1,
+        explanation: "Quicklime + Water -> Calcium hydroxide + Heat (Exothermic reaction)."
+      },
+      {
+        id: 39,
+        category: "Energy & Catalysts",
+        text: "Photosynthesis in green plants requires sunlight energy to produce glucose. Photosynthesis is an example of an:",
+        options: ["Exothermic reaction", "Endothermic reaction", "Explosive reaction", "Electrolytic decomposition"],
+        answer: 1,
+        explanation: "Photosynthesis absorbs light energy from the sun, making it an endothermic process."
+      },
+      {
+        id: 40,
+        category: "Energy & Catalysts",
+        text: "What form of energy is required to decompose water into hydrogen and oxygen gas?",
+        options: ["Sound energy", "Electrical energy (Electricity)", "Light energy only", "Magnetic energy"],
+        answer: 1,
+        explanation: "Passing an electric current through acidulated water dissociates it into hydrogen and oxygen gases."
+      },
+      {
+        id: 41,
+        category: "Energy & Catalysts",
+        text: "A substance that alters the rate of a chemical reaction without undergoing any permanent chemical change itself is a:",
+        options: ["Reactant", "Product", "Catalyst", "Solvent"],
+        answer: 2,
+        explanation: "A catalyst speeds up or slows down a chemical reaction while remaining chemically unchanged at the end."
+      },
+      {
+        id: 42,
+        category: "Energy & Catalysts",
+        text: "In the thermal decomposition of potassium chlorate, which substance acts as a catalyst?",
+        options: ["Manganese dioxide (MnO2)", "Sodium chloride", "Copper sulphate", "Iron oxide"],
+        answer: 0,
+        explanation: "Manganese dioxide acts as a catalyst to decompose potassium chlorate at a much lower temperature."
+      },
+      {
+        id: 43,
+        category: "Energy & Catalysts",
+        text: "Iron and sulphur powders do not react at room temperature, but react vigorously when heated. This shows that:",
+        options: ["Heat energy is required to initiate the reaction", "Sulphur is a catalyst", "Iron is a gas", "The reaction is photochemical"],
+        answer: 0,
+        explanation: "Some chemical reactions require heat energy input to start the reaction between reactants."
+      },
+
+      // CATEGORY 4: Chemical Equations & Balancing (Q44 - Q50)
+      {
+        id: 44,
+        category: "Chemical Equations",
+        text: "A shorthand representation of a chemical reaction using chemical symbols and formulae is called a:",
+        options: ["Word equation", "Chemical equation", "Physical layout", "Atomic diagram"],
+        answer: 1,
+        explanation: "Representing reactants and products using chemical formulae is called a chemical equation."
+      },
+      {
+        id: 45,
+        category: "Chemical Equations",
+        text: "In a standard chemical equation, where are the reactants written?",
+        options: [
+          "On the Right-Hand Side (RHS)",
+          "On the Left-Hand Side (LHS)",
+          "Above the arrow",
+          "Below the equation"
+        ],
+        answer: 1,
+        explanation: "Reactants are always placed on the left-hand side (LHS) of the chemical equation."
+      },
+      {
+        id: 46,
+        category: "Chemical Equations",
+        text: "What does the arrow (->) pointing from left to right represent in a chemical equation?",
+        options: [
+          "Direction of the reaction towards products",
+          "Equal mass of all elements",
+          "Reversibility at room temperature",
+          "Absorption of sound"
+        ],
+        answer: 0,
+        explanation: "The arrow head points towards the products, showing the direction of transformation."
+      },
+      {
+        id: 47,
+        category: "Chemical Equations",
+        text: "A chemical equation in which the total number of atoms of each element on the LHS is NOT equal to that on the RHS is called a:",
+        options: ["Balanced equation", "Skeletal (or unbalanced) equation", "Neutral equation", "Complete equation"],
+        answer: 1,
+        explanation: "An equation with unequal numbers of atoms on reactant and product sides is a skeletal or unbalanced equation."
+      },
+      {
+        id: 48,
+        category: "Chemical Equations",
+        text: "Why MUST chemical equations be balanced?",
+        options: [
+          "To satisfy the Law of Conservation of Mass",
+          "To make the reaction happen faster",
+          "To change the state of reactants",
+          "To convert compounds into elements"
+        ],
+        answer: 0,
+        explanation: "Matter can neither be created nor destroyed; hence total atoms of each element must remain equal on both sides."
+      },
+      {
+        id: 49,
+        category: "Chemical Equations",
+        text: "Which of the following represents the correctly BALANCED symbolic equation for the reaction of hydrogen and chlorine?",
+        options: [
+          "H + Cl -> HCl",
+          "H2 + Cl2 -> HCl",
+          "H2 + Cl2 -> 2HCl",
+          "2H + 2Cl -> H2Cl2"
+        ],
+        answer: 2,
+        explanation: "H2 + Cl2 -> 2HCl has 2 atoms of Hydrogen and 2 atoms of Chlorine on both LHS and RHS."
+      },
+      {
+        id: 50,
+        category: "Chemical Equations",
+        text: "What is the symbolic formula representation for carbon burning in oxygen to yield carbon dioxide?",
+        options: [
+          "C + O2 -> CO2",
+          "C2 + O2 -> 2CO",
+          "CO + O -> CO2",
+          "C + O -> CO"
+        ],
+        answer: 0,
+        explanation: "C (Carbon) + O2 (Oxygen gas) -> CO2 (Carbon dioxide gas)."
+      }
+    ];
+
+    // STATE MANAGEMENT
+    let userAnswers = {}; // { qId: selectedOptionIndex }
+    let currentCategory = "all";
+    let autoExplain = true;
+
+    // INITIALIZATION
+    window.onload = function() {
+      renderQuiz();
+      renderPrintView();
+    };
+
+    // RENDER INTERACTIVE QUIZ
+    function renderQuiz() {
+      const container = document.getElementById("questions-wrapper");
+      container.innerHTML = "";
+
+      const filtered = currentCategory === "all" 
+        ? questions 
+        : questions.filter(q => q.category === currentCategory);
+
+      document.getElementById("stat-total").innerText = filtered.length;
+
+      filtered.forEach((q, index) => {
+        const isAnswered = userAnswers.hasOwnProperty(q.id);
+        const selectedOpt = userAnswers[q.id];
+        const isCorrect = isAnswered && selectedOpt === q.answer;
+
+        const card = document.createElement("div");
+        card.id = `q-card-${q.id}`;
+        card.className = "bg-white rounded-xl shadow-sm border border-slate-200 p-5 transition hover:shadow-md";
+
+        let optionsHtml = "";
+        q.options.forEach((opt, optIdx) => {
+          let btnClass = "border-slate-200 hover:bg-slate-50 text-slate-700";
+          let iconHtml = "";
+
+          if (isAnswered) {
+            if (optIdx === q.answer) {
+              btnClass = "border-emerald-500 bg-emerald-50 text-emerald-900 font-semibold";
+              iconHtml = `<svg class="w-5 h-5 text-emerald-600 inline ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+            } else if (optIdx === selectedOpt) {
+              btnClass = "border-rose-500 bg-rose-50 text-rose-900 font-semibold";
+              iconHtml = `<svg class="w-5 h-5 text-rose-500 inline ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>`;
+            } else {
+              btnClass = "border-slate-200 opacity-60 text-slate-500";
+            }
+          }
+
+          optionsHtml += `
+            <button 
+              onclick="selectOption(${q.id}, ${optIdx})" 
+              ${isAnswered ? 'disabled' : ''}
+              class="w-full text-left p-3.5 rounded-lg border text-sm font-medium flex items-center justify-between transition-all ${btnClass}">
+              <span><strong class="mr-2">${String.fromCharCode(65 + optIdx)}.</strong> ${opt}</span>
+              ${iconHtml}
+            </button>
+          `;
+        });
+
+        const showExplain = isAnswered && autoExplain;
+
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <span class="inline-block px-2.5 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-md uppercase tracking-wider">
+              Question ${index + 1} • ${q.category}
+            </span>
+            ${isAnswered ? (isCorrect 
+              ? `<span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">✓ Correct</span>`
+              : `<span class="text-xs font-bold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full">✗ Incorrect</span>`
+            ) : ''}
+          </div>
+          
+          <h3 class="text-base sm:text-lg font-bold text-slate-800 mb-4">${q.id}. ${q.text}</h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+            ${optionsHtml}
+          </div>
+
+          ${isAnswered ? `
+            <div class="mt-3 text-right">
+              <button onclick="toggleSingleExplanation(${q.id})" class="text-xs text-indigo-600 hover:text-indigo-800 font-semibold underline">
+                ${showExplain ? 'Hide Explanation' : 'Show Explanation'}
+              </button>
+            </div>
+          ` : ''}
+
+          <div id="explain-box-${q.id}" class="${showExplain ? '' : 'hidden'} mt-3 p-3.5 bg-slate-50 border-l-4 border-indigo-500 text-xs sm:text-sm text-slate-600 rounded-r-lg">
+            <strong class="text-indigo-900 block mb-1">Explanation:</strong>
+            ${q.explanation}
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      updateStats();
+    }
+
+    // OPTION SELECTION LOGIC
+    function selectOption(qId, optIdx) {
+      if (userAnswers.hasOwnProperty(qId)) return;
+      userAnswers[qId] = optIdx;
+      renderQuiz();
+    }
+
+    // STATS & PROGRESS UPDATE
+    function updateStats() {
+      const filtered = currentCategory === "all" 
+        ? questions 
+        : questions.filter(q => q.category === currentCategory);
+
+      let answered = 0;
+      let correct = 0;
+      let wrong = 0;
+
+      filtered.forEach(q => {
+        if (userAnswers.hasOwnProperty(q.id)) {
+          answered++;
+          if (userAnswers[q.id] === q.answer) correct++;
+          else wrong++;
+        }
+      });
+
+      document.getElementById("stat-answered").innerText = answered;
+      document.getElementById("stat-correct").innerText = correct;
+      document.getElementById("stat-wrong").innerText = wrong;
+
+      const pct = filtered.length > 0 ? (answered / filtered.length) * 100 : 0;
+      document.getElementById("progress-bar-fill").style.width = `${pct}%`;
+
+      // Show final summary card if all answered
+      const summaryCard = document.getElementById("summary-card");
+      if (answered === filtered.length && filtered.length > 0) {
+        summaryCard.classList.remove("hidden");
+        document.getElementById("final-score").innerText = `${correct} / ${filtered.length}`;
+        
+        const scorePct = (correct / filtered.length) * 100;
+        let msg = "";
+        if (scorePct >= 90) msg = "Outstanding! You have mastered the Language of Chemistry!";
+        else if (scorePct >= 75) msg = "Great job! Strong grasp of chemical reactions and equations.";
+        else if (scorePct >= 50) msg = "Good effort! Review the incorrect questions to solidify your knowledge.";
+        else msg = "Keep practicing! Re-read Theme 5 concepts and try again.";
+        
+        document.getElementById("final-feedback-msg").innerText = msg;
+      } else {
+        summaryCard.classList.add("hidden");
+      }
+    }
+
+    // TOGGLE EXPLANATION FOR SINGLE QUESTION
+    function toggleSingleExplanation(qId) {
+      const box = document.getElementById(`explain-box-${qId}`);
+      if (box) box.classList.toggle("hidden");
+    }
+
+    // TOGGLE GLOBAL EXPLANATION PREFERENCE
+    function toggleAutoExplain(checked) {
+      autoExplain = checked;
+      renderQuiz();
+    }
+
+    // FILTER BY CATEGORY
+    function filterCategory(cat) {
+      currentCategory = cat;
+      renderQuiz();
+    }
+
+    // RESET QUIZ
+    function resetQuiz() {
+      userAnswers = {};
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // RENDER PRINTABLE WORKSHEET VIEW
+    function renderPrintView() {
+      const printList = document.getElementById("print-questions-list");
+      const printKey = document.getElementById("print-answer-key");
+
+      printList.innerHTML = "";
+      printKey.innerHTML = "";
+
+      questions.forEach((q, idx) => {
+        // Question item
+        const item = document.createElement("div");
+        item.className = "mb-4 border-b border-slate-200 pb-3 break-inside-avoid";
+        item.innerHTML = `
+          <p class="font-bold text-slate-900 mb-2">${q.id}. ${q.text}</p>
+          <div class="grid grid-cols-2 gap-2 pl-4">
+            ${q.options.map((opt, oIdx) => `
+              <div><strong>(${String.fromCharCode(65 + oIdx)})</strong> ${opt}</div>
+            `).join('')}
+          </div>
+        `;
+        printList.appendChild(item);
+
+        // Answer Key item
+        const keyItem = document.createElement("div");
+        keyItem.className = "p-2 bg-slate-50 border border-slate-200 rounded break-inside-avoid";
+        keyItem.innerHTML = `
+          <p class="font-bold text-slate-800">Q${q.id}: (${String.fromCharCode(65 + q.answer)}) ${q.options[q.answer]}</p>
+          <p class="text-slate-600 mt-0.5">${q.explanation}</p>
+        `;
+        printKey.appendChild(keyItem);
+      });
+    }
+
+    // SWITCH VIEW & PRINT
+    function prepareAndPrint() {
+      renderPrintView();
+      window.print();
+    }
+  </script>
+</body>
+</html>
